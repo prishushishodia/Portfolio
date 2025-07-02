@@ -10,8 +10,8 @@ const Portfolio = () => {
       src: todo,
       title: "Chat-App",
       description: "A real time chatting application using socket-IO",
-      demoLink: "https://connected-gamma.vercel.app/",
-      codeLink: "#",
+      demoLink: "https://chat-app-client-five-zeta.vercel.app/",
+      codeLink: "https://github.com/prishushishodia/ChatAPP-Client",
     },
   
 
