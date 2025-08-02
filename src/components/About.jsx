@@ -11,50 +11,63 @@ const About = () => {
 
     gsap.fromTo(
       contentRef.current,
-      { opacity: 0, y: 50 },
+      { opacity: 0, y: 60 },
       {
         opacity: 1,
         y: 0,
-        duration: 1,
-        ease: "power2.out",
+        duration: 1.2,
+        ease: "power3.out",
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 70%",
+          toggleActions: "play none none reverse",
         },
       }
     );
   }, []);
 
   return (
-    <div
+    <section
       name="about"
       ref={sectionRef}
-      className="w-full min-h-screen bg-[#1D1616] flex items-center justify-center px-4"
+      className="w-full min-h-screen bg-black flex items-center justify-center px-4 py-12 scroll-mt-20"
     >
-      <div className="max-w-screen-lg p-6 md:p-8 mx-auto flex flex-col justify-center w-full h-full text-white">
-        
+      <div className="max-w-screen-lg mx-auto w-full text-white space-y-10">
         {/* Heading */}
-        <div className="pb-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold inline border-b-4 border-gray-500">
-            About
+        <div className="text-center">
+          <h2 className="text-4xl md:text-5xl font-nike tracking-wider inline-block hover:text-blue-400 transition duration-300">
+            ABOUT
           </h2>
         </div>
 
         {/* Content */}
         <div
           ref={contentRef}
-          className="bg-[#262020] p-6 md:p-8 rounded-xl shadow-lg text-gray-300 text-center md:text-left space-y-6"
+          className="bg-white/5 backdrop-blur-lg p-6 md:p-10 rounded-2xl shadow-2xl text-gray-200 text-center md:text-left space-y-6 border border-white/10 transition-all duration-300"
         >
-          <p className="text-lg md:text-xl leading-relaxed">
-            I’ve successfully designed and developed projects ranging from responsive websites to dynamic web applications. These experiences have sharpened my skills in HTML, CSS, JavaScript, React, Tailwind CSS, and more. I thrive on solving complex problems and crafting seamless web experiences.
+          <p className="text-base md:text-lg leading-relaxed">
+            As a{" "}
+            <span className="text-blue-400 font-semibold">
+              full-stack developer
+            </span>
+            , I specialize in building complete, end-to-end web applications. My
+            expertise spans both frontend and backend technologies, enabling me
+            to design robust solutions with seamless user experiences and
+            scalable server-side architectures.
           </p>
 
-          <p className="text-lg md:text-xl leading-relaxed">
-            What sets me apart is my commitment to continuous learning. Whether it’s exploring cutting-edge technologies like Next.js, Node.js, or enhancing performance optimization strategies, I’m always eager to expand my skill set and deliver high-quality solutions.
+          <p className="text-base md:text-lg leading-relaxed">
+            My projects reflect a strong command of modern stacks like{" "}
+            <span className="text-blue-400 font-semibold">React</span>,{" "}
+            <span className="text-blue-400 font-semibold">Web Sockets</span>,{" "}
+            <span className="text-blue-400 font-semibold">Node.js</span>, and{" "}
+            <span className="text-blue-400 font-semibold">REST APIs</span>. I
+            focus on clean, efficient code and love solving complex problems
+            with high-impact results.
           </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

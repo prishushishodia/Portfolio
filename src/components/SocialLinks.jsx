@@ -1,4 +1,3 @@
-
 import React from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
@@ -36,13 +35,13 @@ const SocialLinks = () => {
   ];
 
   return (
-    <div className="fixed flex flex-col top-[35%] left-0">
+    <div className="fixed flex flex-col top-[35%] left-0 z-50">
       <ul>
         {links.map(({ id, label, icon, href, style, download }) => (
           <li
             key={id}
-            className={`flex justify-between items-center w-44 h-14 px-4 ml-[-120px] hover:ml-[-5px] 
-            hover:bg-gray-800 hover:scale-105 hover:shadow-lg hover:rounded-md duration-300 text-white bg-gray-700 ${style}`}
+            className={`flex justify-between items-center bg-opacity-30 w-44 h-14 px-4 ml-[-120px] hover:ml-[-5px] 
+            hover:bg-blue-500 hover:scale-105 hover:shadow-lg hove:opacity-70 hover:rounded-md duration-300 text-white bg-gray-400 ${style}`}
           >
             <a
               href={href}

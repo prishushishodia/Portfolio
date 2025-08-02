@@ -1,7 +1,8 @@
-
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Assets
 import html from "../assets/HTML5.png";
 import css from "../assets/css.png";
 import javascript from "../assets/JavaScript.png";
@@ -43,12 +44,12 @@ const Skills = () => {
       {
         opacity: 1,
         y: 0,
-        duration: 0.6,
-        stagger: 0.2,
-        ease: "power2.out",
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.15,
         scrollTrigger: {
           trigger: skillsRef.current,
-          start: "top 80%",
+          start: "top 75%",
           toggleActions: "play none none reverse",
         },
       }
@@ -56,26 +57,36 @@ const Skills = () => {
   }, []);
 
   return (
-    <div id="skills" ref={skillsRef} className="w-full h-auto min-h-screen bg-[#1D1616] flex items-center justify-center">
-      <div className="max-w-screen-lg mx-auto p-6 md:p-8 flex flex-col justify-center w-full h-full text-white">
-        <div className="pb-8 text-center">
-          <p className="text-4xl font-bold inline border-b-4 border-gray-500">Skills</p>
-          <p className="py-6 text-lg">Technologies I’ve worked with:</p>
+    <section
+      id="skills"
+      ref={skillsRef}
+      className="w-full min-h-screen bg-black flex items-center justify-center px-4 py-12"
+    >
+      <div className="max-w-screen-lg mx-auto w-full text-white">
+        {/* Heading */}
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold font-nike tracking-wider border-b-4 border-blue-500 inline-block hover:text-blue-400 transition duration-300">
+            SKILLS
+          </h2>
+          <p className="mt-4 text-gray-400 font-thin text-lg md:text-xl">Technologies I’ve worked with:</p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-6 sm:gap-8 text-center py-8">
+        {/* Tech Grid */}
+        <div className="grid grid-cols-2 font-thin sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8 px-2">
           {techs.map(({ id, src, title, style }) => (
             <div
               key={id}
-              className={`tech-box bg-[#262020] shadow-md hover:scale-105 transition-transform duration-300 p-6 rounded-xl ${style}`}
+              className={`tech-box group bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-[1.03] transition-transform duration-300 ${style}`}
             >
-              <img src={src} alt={title} className="w-16 md:w-20 mx-auto" />
-              <p className="mt-4 text-lg font-semibold">{title}</p>
+              <img src={src} alt={title} className="w-14 md:w-16 object-contain" />
+              <p className="mt-4 text-md md:text-lg font-semibold text-white group-hover:text-blue-400 transition-colors duration-200">
+                {title}
+              </p>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
