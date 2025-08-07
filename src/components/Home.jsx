@@ -147,7 +147,7 @@ const Home = () => {
       >
         <h1
           ref={titleRef}
-          className="text-4xl sm:text-6xl md:text-7xl font-Montserrat text-white mb-6 leading-snug"
+          className="text-4xl sm:text-6xl md:text-7xl font-nike text-white mb-6 leading-snug"
         >
           Hi, I'm Priyanshu{" "}
           <span className="block sm:inline">
