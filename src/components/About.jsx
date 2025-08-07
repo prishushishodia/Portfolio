@@ -35,19 +35,21 @@ const About = () => {
       <div className="max-w-screen-lg mx-auto w-full text-white space-y-10">
         {/* Heading */}
         <div className="text-center">
-          <h2 className="text-4xl md:text-5xl font-nike tracking-wider inline-block hover:text-blue-400 transition duration-300">
-            ABOUT
-          </h2>
+     <h2 className="text-4xl md:text-5xl bg-black bg-opacity-80 text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 font-bold font-nike tracking-wider inline-block px-4 py-1">
+  ABOUT
+</h2>
+
+
         </div>
 
         {/* Content */}
         <div
           ref={contentRef}
-          className="bg-white/5 backdrop-blur-lg p-6 md:p-10 rounded-2xl shadow-2xl text-gray-200 text-center md:text-left space-y-6 border border-white/10 transition-all duration-300"
+          className="bg-white/5 backdrop-blur-lg p-6 md:p-10 rounded-2xl shadow-2xl text-gray-400 text-center md:text-left space-y-6 border border-white/10 transition-all duration-300"
         >
           <p className="text-base md:text-lg leading-relaxed">
             As a{" "}
-            <span className="text-blue-400 font-semibold">
+            <span className="text-white font-semibold">
               full-stack developer
             </span>
             , I specialize in building complete, end-to-end web applications. My
@@ -56,7 +58,7 @@ const About = () => {
             scalable server-side architectures.
           </p>
 
-          <p className="text-base md:text-lg leading-relaxed">
+          <p className="text-base md:text-lg  leading-relaxed">
             My projects reflect a strong command of modern stacks like{" "}
             <span className="text-blue-400 font-semibold">React</span>,{" "}
             <span className="text-blue-400 font-semibold">Web Sockets</span>,{" "}

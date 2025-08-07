@@ -55,9 +55,11 @@ const Portfolio = () => {
       <div className="max-w-screen-xl mx-auto w-full h-full flex flex-col">
         {/* Title */}
         <div className="pb-8 text-center group transition-colors duration-300">
-          <h2 className="text-5xl font-extrabold font-nike mb-4 tracking-wider group-hover:text-blue-500">
-            PORTFOLIO
-          </h2>
+     <h2 className="text-4xl md:text-5xl bg-black bg-opacity-80 text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 font-bold font-nike tracking-wider  inline-block px-4 py-1">
+  PORTFOLIO
+</h2>
+
+
           <p className="text-gray-300 font-thin text-lg sm:text-xl">
             Check out some of my work right here
           </p>

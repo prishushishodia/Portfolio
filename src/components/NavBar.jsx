@@ -27,7 +27,7 @@ const NavBar = () => {
       } text-white`}
     >
       {/* Logo */}
-      <h1 className="text-5xl font-nike tracking-widest bg-gradient-to-r from-cyan-400 to-blue-600 text-transparent bg-clip-text leading-normal">
+      <h1 className="text-5xl font-nike tracking-widest bg-gradient-to-r from-cyan-400 to-blue-400 text-transparent bg-clip-text leading-normal">
         PS
       </h1>
 
@@ -36,7 +36,7 @@ const NavBar = () => {
         {links.map(({ id, link }) => (
           <li
             key={id}
-            className="px-4 cursor-pointer font-Montserrat tracking-wider text-lg capitalize font-medium relative 
+            className="px-4 cursor-pointer font-Montserrat  text-lg capitalize  relative 
                        group"
           >
             <Link
@@ -61,7 +61,7 @@ const NavBar = () => {
       {/* Mobile Menu Icon */}
       <div
         onClick={() => setNav(!nav)}
-        className="cursor-pointer pr-4 z-20 text-white md:hidden"
+        className="cursor-pointer pr-4 z-20 text-black md:hidden"
       >
         {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
       </div>
