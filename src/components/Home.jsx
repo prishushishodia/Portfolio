@@ -4,7 +4,7 @@ import { Link } from "react-scroll";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, Stars } from "@react-three/drei"; // Added Stars here
 import RotatingText from "./RotatingText";
 import laptopModel from "../assets/laptop.glb";
 import sittingModel from "../assets/sitting.glb";
@@ -89,7 +89,7 @@ const Home = () => {
   const homeRef = useRef(null);
   const titleRef = useRef(null);
   const buttonRef = useRef(null);
-    const canvasRef = useRef(null); 
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -115,20 +115,28 @@ const Home = () => {
         "-=0.4"
       );
   }, []);
-  
 
   return (
     <div
       name="home"
       ref={homeRef}
-      className="relative min-h-screen flex items-center justify-center
-                          bg-black
-                          text-white overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center bg-black text-white overflow-hidden"
     >
-      {/* The background is now fixed */}
+      {/* The background with stars */}
       <div ref={canvasRef} className="fixed inset-0 z-0">
         <Canvas camera={{ position: [0, 0.5, 5], fov: 50 }}>
           <Suspense fallback={null}>
+            {/* Starfield Universe Background */}
+            <Stars
+              radius={100}
+              depth={20}
+              count={5000}
+              factor={10}
+              saturation={0}
+              fade
+              speed={1}
+            />
+
             <ambientLight intensity={0.5} />
             <spotLight
               position={[10, 15, 10]}
@@ -141,9 +149,9 @@ const Home = () => {
         </Canvas>
       </div>
 
+      {/* Foreground Content */}
       <div
-        className="relative z-10 max-w-screen-xl mx-auto flex flex-col items-center justify-center
-                            px-40 md:px-100 text-center py-24"
+        className="relative z-10 max-w-screen-xl mx-auto flex flex-col items-center justify-center px-40 md:px-100 text-center py-24"
       >
         <h1
           ref={titleRef}
@@ -154,7 +162,11 @@ const Home = () => {
             a{" "}
             <span className="relative inline-block h-[3.5rem] sm:h-[4.5rem] align-middle overflow-hidden">
               <RotatingText
-                texts={["FULL STACK DEVELOPER", "FRONTEND DESIGNER","BACKEND ENGINEER"]}
+                texts={[
+                  "FULL STACK DEVELOPER",
+                  "FRONTEND DESIGNER",
+                  "BACKEND ENGINEER",
+                ]}
                 mainClassName="bg-clip-text font-nike text-transparent bg-gradient-to-r from-cyan-300 via-blue-400 to-blue-600 px-2 sm:px-4 py-1 rounded-md shadow-md transition-all duration-300 ease-in-out"
                 staggerFrom="last"
                 initial={{ y: "100%" }}
@@ -162,13 +174,16 @@ const Home = () => {
                 exit={{ y: "-100%" }}
                 staggerDuration={0.025}
                 splitLevelClassName="overflow-hidden"
-                transition={{ type: "spring", duration: 0.4, ease: "easeInOut" }}
+                transition={{
+                  type: "spring",
+                  duration: 0.4,
+                  ease: "easeInOut",
+                }}
                 rotationInterval={2500}
               />
             </span>
           </span>
         </h1>
-        {/* Your other content */}
       </div>
     </div>
   );
