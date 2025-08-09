@@ -15,7 +15,7 @@ const Portfolio = () => {
         "Built a responsive and scalable UI supporting 100+ concurrent users with secure group creation and member management.",
         "Implemented file sharing functionality allowing users to send images and documents seamlessly within conversations.",
       ],
-      demoLink: "https://chat-app-client-five-zeta.vercel.app/",
+      demoLink: "https://chat-app-client-two-gamma.vercel.app/",
       codeLink: "https://github.com/prishushishodia/ChatAPP-Client",
     },
     {
