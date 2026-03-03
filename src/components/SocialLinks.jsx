@@ -28,9 +28,9 @@ const SocialLinks = () => {
       id: 4,
       label: "Resume",
       icon: <BsFillPersonLinesFill size={25} />,
-      href: "/resume.pdf",
+      href: "/Resume.pdf",
       style: "rounded-br-md",
-      download: true,
+      download: "Resume.pdf",
     },
   ];
 
@@ -47,7 +47,7 @@ const SocialLinks = () => {
               href={href}
               className="flex justify-between items-center w-full"
               download={download}
-              target="_blank"
+              target={download ? "_self" : "_blank"}
               rel="noreferrer"
             >
               <span className="text-sm font-semibold">{label}</span>

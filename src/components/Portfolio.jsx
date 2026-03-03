@@ -2,6 +2,7 @@ import React from "react";
 import uber from "../assets/uber.jpg";
 import chatapp from "../assets/chatapp.jpg";
 import oversocs from "../assets/socks1.jpg";
+import autocrawler from "../assets/batman.jpg";
 
 const Portfolio = () => {
   const portfolios = [
@@ -45,6 +46,19 @@ const Portfolio = () => {
       demoLink: "https://oversocs-d86z.vercel.app/",
       codeLink: "https://github.com/prishushishodia/OVERSOCS",
     },
+    {
+      id: 4,
+      src: autocrawler,
+      title: "AutoCrawler",
+      description: "A highly efficient web scraping and automation tool.",
+      details: [
+        "Developed a robust and scalable web crawler capable of extracting structured data.",
+        "Implemented error handling, rate limiting, and request retries to ensure reliable extraction.",
+        "Built a user-friendly interface to configure crawling settings and view extracted data.",
+      ],
+      demoLink: "https://auto-crawler.vercel.app",
+      codeLink: "https://github.com/prishushishodia/AutoCrawler",
+    },
   ];
 
   return (
@@ -55,9 +69,9 @@ const Portfolio = () => {
       <div className="max-w-screen-xl mx-auto w-full h-full flex flex-col">
         {/* Title */}
         <div className="pb-8 text-center group transition-colors duration-300">
-     <h2 className="text-4xl md:text-5xl bg-black bg-opacity-80 text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 font-bold font-nike tracking-wider  inline-block px-4 py-1">
-  PORTFOLIO
-</h2>
+          <h2 className="text-4xl md:text-5xl bg-black bg-opacity-80 text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 font-bold font-nike tracking-wider  inline-block px-4 py-1">
+            PORTFOLIO
+          </h2>
 
 
           <p className="text-gray-300 font-thin text-lg sm:text-xl">
@@ -66,17 +80,17 @@ const Portfolio = () => {
         </div>
 
         {/* Project Cards */}
-        <div className="flex flex-col md:flex-row justify-center items-stretch md:gap-4 lg:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 justify-items-center w-full pb-10">
           {portfolios.map(
             ({ id, src, title, description, details, demoLink, codeLink }) => (
               <div
                 key={id}
                 className="
-                  group relative w-full md:w-1/3 flex-shrink-0 flex flex-col
+                  group relative w-full flex flex-col max-w-[500px]
                   bg-white/10 backdrop-blur-md shadow-lg rounded-2xl
-                  overflow-hidden cursor-pointer mb-8 md:mb-0
+                  overflow-hidden cursor-pointer
                   h-[350px] transition-all duration-500 ease-in-out
-                  hover:h-[550px] hover:md:h-[600px]
+                  hover:h-[450px] hover:md:h-[500px]
                 "
               >
                 {/* Image */}
