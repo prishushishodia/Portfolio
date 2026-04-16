@@ -15,9 +15,14 @@ module.exports = {
         Montserrat: ['Montserrat', 'sans-serif'],
       },
       colors: {
-        // Add any custom colors you might need
         'custom-dark': '#1D1616',
-      }
+        'deep-dark': '#0a0a0f',
+        'mid-dark': '#06060b',
+      },
+      transitionDuration: {
+        '350': '350ms',
+        '400': '400ms',
+      },
     },
   },
   plugins: [],
