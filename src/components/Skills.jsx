@@ -2,33 +2,37 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import html from "../assets/HTML5.png";
-import css from "../assets/css.png";
 import javascript from "../assets/JavaScript.png";
 import react from "../assets/React.png";
-import nextjs from "../assets/Next.js.png";
+import nextjs from "../assets/next-light.svg";
 import nodejs from "../assets/Node.js.png";
 import mongoDB from "../assets/MongoDB.png";
 import tailwind from "../assets/Tailwind.png";
-import express from "../assets/Express.png";
+import express from "../assets/express-light.svg";
 import TS from "../assets/TypeScript.png";
 import SQL from "../assets/SQL.png";
-import Wordpress from "../assets/Wordpress.png";
+import redis from "../assets/redis.svg";
+import postgres from "../assets/PostgresSQL.png";
+import aws from "../assets/aws.svg";
+import nestjs from "../assets/nestjs.svg";
+import cms from "../assets/strapi.svg";
 
 const Skills = () => {
   const techs = [
-    { id: 1, src: html, title: "HTML", category: "Frontend" },
-    { id: 2, src: css, title: "CSS", category: "Frontend" },
-    { id: 3, src: javascript, title: "JavaScript", category: "Frontend" },
-    { id: 4, src: tailwind, title: "Tailwind CSS", category: "Frontend" },
-    { id: 5, src: react, title: "React", category: "Frontend" },
-    { id: 6, src: nodejs, title: "Node.js", category: "Backend" },
-    { id: 7, src: mongoDB, title: "MongoDB", category: "Backend" },
-    { id: 8, src: express, title: "Express.js", category: "Backend" },
-    { id: 9, src: nextjs, title: "Next.js", category: "Fullstack" },
-    { id: 10, src: TS, title: "TypeScript", category: "Language" },
-    { id: 11, src: SQL, title: "SQL", category: "Database" },
-    { id: 12, src: Wordpress, title: "WordPress", category: "CMS" },
+    { id: 1, src: javascript, title: "JavaScript", category: "Frontend" },
+    { id: 2, src: tailwind, title: "Tailwind CSS", category: "Frontend" },
+    { id: 3, src: react, title: "React", category: "Frontend" },
+    { id: 4, src: nodejs, title: "Node.js", category: "Backend" },
+    { id: 5, src: mongoDB, title: "MongoDB", category: "Backend" },
+    { id: 6, src: express, title: "Express.js", category: "Backend" },
+    { id: 7, src: nextjs, title: "Next.js", category: "Fullstack" },
+    { id: 8, src: TS, title: "TypeScript", category: "Language" },
+    { id: 9, src: SQL, title: "SQL", category: "Database" },
+    { id: 10, src: redis, title: "Redis", category: "Database" },
+    { id: 11, src: postgres, title: "PostgreSQL", category: "Database" },
+    { id: 12, src: aws, title: "AWS", category: "Cloud" },
+    { id: 13, src: nestjs, title: "NestJS", category: "Backend" },
+    { id: 14, src: cms, title: "CMS", category: "CMS" },
   ];
 
   const skillsRef = useRef(null);
@@ -57,7 +61,6 @@ const Skills = () => {
 
   return (
     <section
-      id="skills"
       ref={skillsRef}
       className="w-full min-h-screen bg-[#06060b] flex items-center justify-center px-6 py-24 relative"
     >
@@ -82,12 +85,13 @@ const Skills = () => {
           </p>
         </div>
 
-        {/* Tech Grid */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 md:gap-5">
+        {/* Tech Grid — flex-wrap + center so an incomplete last row stays centered */}
+        <div className="flex flex-wrap justify-center gap-4 md:gap-5">
           {techs.map(({ id, src, title, category }) => (
             <div
               key={id}
               className="tech-box group relative bg-white/[0.03] border border-white/[0.06] rounded-xl p-4 flex flex-col items-center justify-center
+                         basis-[calc((100%-2rem)/3)] sm:basis-[calc((100%-3rem)/4)] md:basis-[calc((100%-6.25rem)/6)]
                          hover:bg-white/[0.06] hover:border-cyan-400/25 transition-all duration-350 cursor-default"
             >
               {/* Hover glow background */}

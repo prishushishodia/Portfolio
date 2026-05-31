@@ -46,7 +46,6 @@ const About = () => {
 
   return (
     <section
-      name="about"
       ref={sectionRef}
       className="w-full min-h-screen bg-[#0a0a0f] dot-grid flex items-center justify-center px-6 py-24 scroll-mt-20 relative"
     >

@@ -92,7 +92,6 @@ const Portfolio = () => {
 
   return (
     <section
-      id="portfolio"
       ref={sectionRef}
       className="w-full min-h-screen flex flex-col items-center justify-center bg-[#0a0a0f] dot-grid text-white px-6 py-24 relative"
     >
@@ -107,7 +106,7 @@ const Portfolio = () => {
         {/* Section Label + Heading */}
         <div className="mb-14">
           <p className="text-xs font-Montserrat tracking-[0.35em] text-cyan-400 uppercase mb-3">
-            03 — Featured Work
+            04 — Featured Work
           </p>
           <h2 className="text-4xl md:text-5xl font-nike tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400 inline-block">
             PORTFOLIO

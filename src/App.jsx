@@ -1,24 +1,38 @@
-import About from "./components/About";
-import Contact from "./components/Contact";
-import Skills from "./components/Skills";
+import { lazy } from "react";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
-import Portfolio from "./components/Portfolio";
-import SmoothScroll from "./components/SmoothScroller";
 import SocialLinks from "./components/SocialLinks";
+import LazySection from "./components/LazySection";
+
+// Below-the-fold sections are code-split and mounted only when scrolled near.
+// Home stays eager — it's the above-the-fold hero.
+const About = lazy(() => import("./components/About"));
+const Skills = lazy(() => import("./components/Skills"));
+const Experience = lazy(() => import("./components/Experience"));
+const Portfolio = lazy(() => import("./components/Portfolio"));
+const Contact = lazy(() => import("./components/Contact"));
+
 function App() {
   return (
     <>
       <NavBar />
       <SocialLinks />
-      <SmoothScroll>
-        <Home />
+      <Home />
+      <LazySection anchorId="about">
         <About />
+      </LazySection>
+      <LazySection anchorId="skills">
         <Skills />
+      </LazySection>
+      <LazySection anchorId="experience">
+        <Experience />
+      </LazySection>
+      <LazySection anchorId="portfolio">
         <Portfolio />
-
+      </LazySection>
+      <LazySection anchorId="contact">
         <Contact />
-      </SmoothScroll>
+      </LazySection>
     </>
   );
 }

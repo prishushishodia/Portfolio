@@ -13,9 +13,9 @@ const NavBar = () => {
   }, []);
 
   const links = [
-    { id: 1, link: "home" },
-    { id: 2, link: "about" },
-    { id: 3, link: "skills" },
+    { id: 1, link: "about" },
+    { id: 2, link: "skills" },
+    { id: 3, link: "experience" },
     { id: 4, link: "portfolio" },
     { id: 5, link: "contact" },
   ];

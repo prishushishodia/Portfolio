@@ -35,7 +35,6 @@ const Contact = () => {
 
   return (
     <div
-      name="contact"
       ref={containerRef}
       className="w-full min-h-screen flex items-center justify-center bg-[#06060b] px-6 py-24 relative"
     >
@@ -49,7 +48,7 @@ const Contact = () => {
         {/* Section Label + Heading */}
         <div className="mb-14">
           <p className="text-xs font-Montserrat tracking-[0.35em] text-cyan-400 uppercase mb-3">
-            04 — Get In Touch
+            05 — Get In Touch
           </p>
           <h2 className="text-4xl md:text-5xl font-nike tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400 inline-block">
             CONTACT

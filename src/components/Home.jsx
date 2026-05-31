@@ -3,73 +3,126 @@ import { Link } from "react-scroll";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useGLTF, Stars } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import RotatingText from "./RotatingText";
 import VariableProximity from "./VariableProximity";
-import laptopModel from "../assets/laptop.glb";
-import sittingModel from "../assets/sitting.glb";
+import Galaxy from "./Galaxy";
+// import laptopModel from "../assets/laptop.glb";
+// import sittingModel from "../assets/sitting.glb";
+// Served from public/models — referenced by URL, not imported.
+const studentModel = "/models/focused_student_with_laptop.glb";
 import * as THREE from "three";
 import { HiOutlineChevronDown } from "react-icons/hi";
 
-const LaptopModel = () => {
-  const { scene } = useGLTF(laptopModel);
+// const LaptopModel = () => {
+//   const { scene } = useGLTF(laptopModel);
+//
+//   const material = new THREE.MeshStandardMaterial({
+//     color: "#5184a4",
+//     metalness: 0.4,
+//     roughness: 0.05,
+//   });
+//
+//   scene.traverse((child) => {
+//     if (child.isMesh) {
+//       child.material = material;
+//     }
+//   });
+//
+//   return (
+//     <primitive
+//       object={scene}
+//       scale={0.15}
+//       position={[0, 0, 0]}
+//       rotation={[-Math.PI / 100, 0, 0]}
+//     />
+//   );
+// };
 
-  const material = new THREE.MeshStandardMaterial({
-    color: "#5184a4",
-    metalness: 0.4,
-    roughness: 0.05,
-  });
+// const SittingModel = () => {
+//   const { scene } = useGLTF(sittingModel);
+//
+//   const material = new THREE.MeshStandardMaterial({
+//     color: "#5184a4",
+//     roughness: 0.1,
+//     metalness: 10.0,
+//     envMapIntensity: 2.0,
+//   });
+//
+//   scene.traverse((child) => {
+//     if (child.isMesh) {
+//       child.material = material;
+//       child.castShadow = true;
+//       child.receiveShadow = true;
+//     }
+//   });
+//
+//   return (
+//     <primitive
+//       object={scene}
+//       scale={0.002}
+//       position={[0, -2, 0.75]}
+//       rotation={[Math.PI / 2, Math.PI, 0]}
+//     />
+//   );
+// };
+
+const StudentModel = () => {
+  const { scene } = useGLTF(studentModel);
+
+  // Keep the model's original textures/materials — overriding them with a flat
+  // metallic color made it render as a dark silhouette under the dim lighting.
+  // const material = new THREE.MeshStandardMaterial({
+  //   color: "#5184a4",
+  //   metalness: 0.4,
+  //   roughness: 0.05,
+  // });
 
   scene.traverse((child) => {
     if (child.isMesh) {
-      child.material = material;
-    }
-  });
-
-  return (
-    <primitive
-      object={scene}
-      scale={0.15}
-      position={[0, 0, 0]}
-      rotation={[-Math.PI / 100, 0, 0]}
-    />
-  );
-};
-
-const SittingModel = () => {
-  const { scene } = useGLTF(sittingModel);
-
-  const material = new THREE.MeshStandardMaterial({
-    color: "#5184a4",
-    roughness: 0.1,
-    metalness: 10.0,
-    envMapIntensity: 2.0,
-  });
-
-  scene.traverse((child) => {
-    if (child.isMesh) {
-      child.material = material;
+      // child.material = material;
       child.castShadow = true;
       child.receiveShadow = true;
     }
   });
 
+  // Auto-center and normalize the model size so it renders consistently
+  // regardless of the GLB's native units/origin.
+  const box = new THREE.Box3().setFromObject(scene);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  const maxDim = Math.max(size.x, size.y, size.z) || 1;
+  const normalize = 1.5 / maxDim; // target ~1.5 units tall before group scale
+
   return (
     <primitive
       object={scene}
-      scale={0.002}
-      position={[0, -2, 0.75]}
-      rotation={[Math.PI / 2, Math.PI, 0]}
+      scale={normalize}
+      position={[
+        -center.x * normalize,
+        -center.y * normalize,
+        -center.z * normalize,
+      ]}
+      rotation={[0, 0, 0]}
     />
   );
 };
 
 const ModelsGroup = () => {
   const groupRef = useRef();
+  // Turn the model 90° (π/2) from its old facing so its left side faces the
+  // viewport on first view.
+  const baseRotationY = 0.7 - Math.PI / 2;
 
   useFrame(() => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += 0.006;
+      // Drive rotation from scroll position instead of auto-rotating.
+      // Model sits still when not scrolling; rotates as the page scrolls.
+      const scrollY = typeof window !== "undefined" ? window.scrollY : 0;
+      const targetRotationY = baseRotationY + scrollY * 0.002;
+      // Smoothly ease toward the scroll-driven target.
+      groupRef.current.rotation.y +=
+        (targetRotationY - groupRef.current.rotation.y) * 0.1;
     }
   });
 
@@ -80,8 +133,9 @@ const ModelsGroup = () => {
       position={[2.5, -0.4, 0]}
       rotation={[0.0, 0.7, -0.0]}
     >
-      <LaptopModel />
-      <SittingModel />
+      {/* <LaptopModel /> */}
+      {/* <SittingModel /> */}
+      <StudentModel />
     </group>
   );
 };
@@ -136,26 +190,35 @@ const Home = () => {
         <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[100px]" />
       </div>
 
-      {/* 3D Canvas background */}
-      <div ref={canvasRef} className="fixed inset-0 z-0">
+      {/* Galaxy WebGL background */}
+      <div className="fixed inset-0 z-0">
+        <Galaxy
+          mouseRepulsion
+          mouseInteraction
+          density={0.6}
+          glowIntensity={0.12}
+          saturation={0.25}
+          hueShift={220}
+          twinkleIntensity={0.2}
+          starSpeed={0.3}
+        />
+      </div>
+
+      {/* 3D Canvas background — click-through so the Galaxy below gets the mouse */}
+      <div ref={canvasRef} className="fixed inset-0 z-0 pointer-events-none">
         <Canvas camera={{ position: [0, 0.5, 5], fov: 50 }}>
           <Suspense fallback={null}>
-            <Stars
-              radius={100}
-              depth={20}
-              count={5000}
-              factor={10}
-              saturation={0}
-              fade
-              speed={1}
-            />
-            <ambientLight intensity={0.5} />
+            <ambientLight intensity={1.4} />
             <spotLight
               position={[10, 15, 10]}
               angle={0.3}
               penumbra={1}
+              intensity={1.5}
               castShadow
             />
+            {/* Fill light on the model's left/front so it isn't lost to shadow */}
+            <directionalLight position={[-6, 4, 6]} intensity={1.2} />
+            <directionalLight position={[2, 2, 5]} intensity={0.6} />
             <ModelsGroup />
           </Suspense>
         </Canvas>
