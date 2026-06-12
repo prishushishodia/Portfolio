@@ -1,267 +1,233 @@
-import React, { useEffect, useRef, Suspense } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-scroll";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useGLTF, Stars } from "@react-three/drei";
 import RotatingText from "./RotatingText";
 import VariableProximity from "./VariableProximity";
-import laptopModel from "../assets/laptop.glb";
-import sittingModel from "../assets/sitting.glb";
-import * as THREE from "three";
-import { HiOutlineChevronDown } from "react-icons/hi";
+import { HiOutlineArrowDown, HiOutlineArrowUpRight } from "react-icons/hi2";
+import me from "../assets/me.jpg";
 
-const LaptopModel = () => {
-  const { scene } = useGLTF(laptopModel);
-
-  const material = new THREE.MeshStandardMaterial({
-    color: "#5184a4",
-    metalness: 0.4,
-    roughness: 0.05,
-  });
-
-  scene.traverse((child) => {
-    if (child.isMesh) {
-      child.material = material;
-    }
-  });
-
-  return (
-    <primitive
-      object={scene}
-      scale={0.15}
-      position={[0, 0, 0]}
-      rotation={[-Math.PI / 100, 0, 0]}
-    />
-  );
-};
-
-const SittingModel = () => {
-  const { scene } = useGLTF(sittingModel);
-
-  const material = new THREE.MeshStandardMaterial({
-    color: "#5184a4",
-    roughness: 0.1,
-    metalness: 10.0,
-    envMapIntensity: 2.0,
-  });
-
-  scene.traverse((child) => {
-    if (child.isMesh) {
-      child.material = material;
-      child.castShadow = true;
-      child.receiveShadow = true;
-    }
-  });
-
-  return (
-    <primitive
-      object={scene}
-      scale={0.002}
-      position={[0, -2, 0.75]}
-      rotation={[Math.PI / 2, Math.PI, 0]}
-    />
-  );
-};
-
-const ModelsGroup = () => {
-  const groupRef = useRef();
-
-  useFrame(() => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += 0.006;
-    }
-  });
-
-  return (
-    <group
-      ref={groupRef}
-      scale={2}
-      position={[2.5, -0.4, 0]}
-      rotation={[0.0, 0.7, -0.0]}
-    >
-      <LaptopModel />
-      <SittingModel />
-    </group>
-  );
-};
+const marqueeItems = [
+  "React",
+  "Next.js",
+  "TypeScript",
+  "Node.js",
+  "NestJS",
+  "PostgreSQL",
+  "MongoDB",
+  "Redis",
+  "WebSockets",
+  "AWS",
+  "GSAP",
+  "Tailwind CSS",
+];
 
 const Home = () => {
   const homeRef = useRef(null);
+  const imageRef = useRef(null);
+  const introRef = useRef(null);
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
-  const scrollRef = useRef(null);
-  const canvasRef = useRef(null);
+  const ctaRef = useRef(null);
+  const marqueeRef = useRef(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-    const timeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: homeRef.current,
-        start: "top center",
-        toggleActions: "play none none none",
-      },
-    });
-
-    timeline
+    tl.fromTo(
+      imageRef.current,
+      { opacity: 0, scale: 1.06 },
+      { opacity: 1, scale: 1, duration: 1.6, ease: "power2.out" }
+    )
       .fromTo(
-        titleRef.current,
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 1.1, ease: "power3.out" }
+        introRef.current,
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        "-=1.0"
+      )
+      .fromTo(
+        titleRef.current.children,
+        { opacity: 0, y: 60 },
+        { opacity: 1, y: 0, duration: 1.1, stagger: 0.12 },
+        "-=0.5"
       )
       .fromTo(
         subtitleRef.current,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
-        "-=0.5"
+        { opacity: 1, y: 0, duration: 0.7 },
+        "-=0.6"
       )
       .fromTo(
-        scrollRef.current,
+        ctaRef.current,
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.7 },
+        "-=0.45"
+      )
+      .fromTo(
+        marqueeRef.current,
         { opacity: 0 },
-        { opacity: 1, duration: 0.8, ease: "power2.out" },
+        { opacity: 1, duration: 0.9 },
         "-=0.3"
       );
+
+    return () => tl.kill();
   }, []);
 
   return (
-    <div
+    <section
       name="home"
+      id="home"
       ref={homeRef}
-      className="relative min-h-screen flex items-center justify-center bg-[#0a0a0f] text-white overflow-hidden"
+      className="relative min-h-screen bg-bg text-ink overflow-hidden"
     >
-      {/* Subtle radial glow */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[120px]" />
-        <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[100px]" />
+      {/* Full-bleed photo, graded into the palette */}
+      <div ref={imageRef} className="absolute inset-0 z-0">
+        <img
+          src={me}
+          alt="Priyanshu Shishodia watching a sunset"
+          fetchPriority="high"
+          className="w-full h-full object-cover"
+          style={{ objectPosition: "62% 35%" }}
+        />
+        {/* Warm grade + legibility gradients */}
+        <div className="absolute inset-0 bg-accent/10 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-b from-bg/80 via-bg/10 to-bg" />
+        <div className="absolute inset-0 bg-gradient-to-l from-bg/60 via-bg/20 to-transparent" />
       </div>
 
-      {/* 3D Canvas background */}
-      <div ref={canvasRef} className="fixed inset-0 z-0">
-        <Canvas camera={{ position: [0, 0.5, 5], fov: 50 }}>
-          <Suspense fallback={null}>
-            <Stars
-              radius={100}
-              depth={20}
-              count={5000}
-              factor={10}
-              saturation={0}
-              fade
-              speed={1}
-            />
-            <ambientLight intensity={0.5} />
-            <spotLight
-              position={[10, 15, 10]}
-              angle={0.3}
-              penumbra={1}
-              castShadow
-            />
-            <ModelsGroup />
-          </Suspense>
-        </Canvas>
-      </div>
-
-      {/* Foreground Content */}
-      <div className="relative z-10 w-full max-w-screen-xl mx-auto px-6 md:px-16 flex flex-col items-start justify-center min-h-screen pt-20">
-        {/* Greeting pill */}
-        <div className="mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/5 backdrop-blur-sm">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-          <span className="text-xs font-Montserrat tracking-[0.2em] text-cyan-300 uppercase">Available for work</span>
-        </div>
-
-        {/* Main title */}
-        <div ref={titleRef}>
-          <p className="text-gray-400 font-Montserrat text-base md:text-lg tracking-[0.1em] mb-2 uppercase font-light">
-            Hi, I'm Priyanshu
-          </p>
-          <h1
-            className="font-Montserrat leading-[1.05] tracking-tight select-none"
-            style={{ fontSize: 'clamp(2.8rem, 8vw, 6rem)' }}
-          >
-            {/* "FULL STACK" — white, weight ripples from 600 → 900 */}
-            <VariableProximity
-              label="FULL STACK"
-              containerRef={homeRef}
-              fromFontVariationSettings='"wght" 600'
-              toFontVariationSettings='"wght" 900'
-              radius={180}
-              falloff="exponential"
-              className="block text-white"
-            />
-
-            {/* "DEVELOPER" — gradient, weight ripples from 600 → 900 */}
-            <span className="block mt-1 bg-gradient-to-r from-cyan-300 via-blue-400 to-blue-600 bg-clip-text text-transparent">
-              <VariableProximity
-                label="DEVELOPER"
-                containerRef={homeRef}
-                fromFontVariationSettings='"wght" 600'
-                toFontVariationSettings='"wght" 900'
-                radius={180}
-                falloff="exponential"
-              />
+      {/* Foreground content */}
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 min-h-screen flex flex-col items-end justify-center text-right pt-24 pb-36">
+        {/* Intro line */}
+        <div ref={introRef} className="mb-8 md:mb-10">
+          <div className="inline-flex items-center gap-3 mb-5">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-60" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
             </span>
-          </h1>
+            <span className="font-mono text-[11px] tracking-[0.25em] text-muted uppercase">
+              Freelance & full-time
+            </span>
+          </div>
+          <p className="font-mono text-sm md:text-base text-muted tracking-wide">
+            Hi, I&apos;m{" "}
+            <span className="text-ink">Priyanshu Shishodia</span> — I build for
+            the web.
+          </p>
         </div>
+
+        {/* Headline */}
+        <h1
+          ref={titleRef}
+          className="leading-[0.95] select-none"
+          style={{ fontSize: "clamp(3.2rem, 10vw, 8.5rem)" }}
+        >
+          <span className="block font-grotesk uppercase tracking-tight">
+            <VariableProximity
+              label="Full Stack"
+              containerRef={homeRef}
+              fromFontVariationSettings='"wght" 350'
+              toFontVariationSettings='"wght" 700'
+              radius={200}
+              falloff="exponential"
+            />
+          </span>
+          <span className="block font-fraunces italic font-light text-accent mt-1 md:mt-2 pl-4">
+            <VariableProximity
+              label="Developer"
+              containerRef={homeRef}
+              fromFontVariationSettings='"wght" 340'
+              toFontVariationSettings='"wght" 640'
+              radius={200}
+              falloff="exponential"
+            />
+          </span>
+        </h1>
 
         {/* Rotating subtitle */}
-        <div ref={subtitleRef} className="mt-6 flex items-center gap-3">
-          <div className="w-8 h-[1px] bg-cyan-400/60" />
-          <div className="h-[2.5rem] overflow-hidden">
+        <div ref={subtitleRef} className="mt-8 md:mt-10 flex items-center gap-4">
+          <div className="h-[1.6rem] overflow-hidden">
             <RotatingText
               texts={[
-                "FULL STACK DEVELOPER",
-                "FRONTEND DESIGNER",
-                "BACKEND ENGINEER",
+                "Realtime apps & WebSockets",
+                "REST APIs that scale",
+                "Interfaces with motion",
               ]}
-              mainClassName="font-Montserrat text-sm md:text-base tracking-[0.15em] text-gray-300 uppercase font-light"
-              staggerFrom="last"
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "-100%" }}
-              staggerDuration={0.025}
-              splitLevelClassName="overflow-hidden"
-              transition={{
-                type: "spring",
-                duration: 0.4,
-                ease: "easeInOut",
-              }}
-              rotationInterval={2500}
+              className="font-mono text-xs md:text-sm tracking-[0.2em] text-muted uppercase"
+              rotationInterval={2600}
             />
           </div>
+          <div className="w-10 h-px bg-accent/70" />
         </div>
 
-        {/* CTA Buttons */}
-        <div className="mt-10 flex items-center gap-4">
+        {/* CTAs */}
+        <div ref={ctaRef} className="mt-12 flex flex-wrap items-center justify-end gap-6">
           <Link
             to="portfolio"
             smooth
             duration={700}
-            className="cursor-pointer px-7 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full text-white text-sm font-Montserrat font-semibold tracking-wider hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300"
+            offset={-70}
+            className="group cursor-pointer inline-flex items-center gap-2 px-7 py-3.5 bg-accent text-bg rounded-full font-grotesk font-medium text-sm tracking-wide hover:bg-ink transition-colors duration-300"
           >
-            View Work
+            Selected work
+            <HiOutlineArrowUpRight
+              size={15}
+              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
           </Link>
           <Link
             to="contact"
             smooth
             duration={700}
-            className="cursor-pointer px-7 py-3 border border-white/15 rounded-full text-white text-sm font-Montserrat font-medium tracking-wider hover:border-cyan-400/40 hover:bg-white/5 transition-all duration-300"
+            offset={-70}
+            className="u-link cursor-pointer font-mono text-sm tracking-[0.15em] text-ink uppercase"
           >
-            Contact Me
+            Get in touch
           </Link>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div
-        ref={scrollRef}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 scroll-bounce cursor-pointer"
+      {/* Scroll cue */}
+      <Link
+        to="about"
+        smooth
+        duration={700}
+        offset={-70}
+        className="absolute bottom-24 left-6 md:left-12 z-10 cursor-pointer hidden sm:flex flex-col items-center gap-3"
       >
-        <Link to="about" smooth duration={700}>
-          <span className="text-[10px] font-Montserrat tracking-[0.3em] text-gray-500 uppercase block text-center mb-1">Scroll</span>
-          <HiOutlineChevronDown size={20} className="text-cyan-400/60 mx-auto" />
-        </Link>
+        <span
+          className="font-mono text-[10px] tracking-[0.3em] text-muted uppercase"
+          style={{ writingMode: "vertical-rl" }}
+        >
+          Scroll
+        </span>
+        <HiOutlineArrowDown size={16} className="text-accent scroll-bounce" />
+      </Link>
+
+      {/* Tech marquee */}
+      <div
+        ref={marqueeRef}
+        className="marquee absolute bottom-0 left-0 right-0 z-10 border-t border-line bg-bg/60 backdrop-blur-sm overflow-hidden py-4"
+      >
+        <div className="marquee-track">
+          {[0, 1].map((dup) => (
+            <div
+              key={dup}
+              className="flex shrink-0 items-center"
+              aria-hidden={dup === 1}
+            >
+              {marqueeItems.map((item) => (
+                <span
+                  key={`${dup}-${item}`}
+                  className="flex items-center font-mono text-xs tracking-[0.2em] text-muted uppercase"
+                >
+                  <span className="px-6">{item}</span>
+                  <span className="text-accent/60 text-[8px]">◆</span>
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
