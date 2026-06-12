@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FiGithub } from "react-icons/fi";
 import { HiOutlineArrowUpRight } from "react-icons/hi2";
+import creatorvision from "../assets/creatorvision.jpg";
 import uber from "../assets/uber.jpg";
 import chatapp from "../assets/chatapp.jpg";
 import oversocs from "../assets/oversocs.jpg";
@@ -11,6 +12,16 @@ import autocrawler from "../assets/autocrawler.jpg";
 const projects = [
   {
     id: "01",
+    src: creatorvision,
+    title: "Creator Vision",
+    description:
+      "AI brand-detection and creator-analytics platform built at Hypeliv — a multi-signal pipeline (Gemini vision, audio transcription, on-screen OCR) that finds brands inside TikTok and YouTube videos and rolls detections into earned-media-value reports. BullMQ-driven processing across 46 backend modules.",
+    tags: ["NestJS", "BullMQ", "PostgreSQL", "pgvector", "Google AI", "AWS"],
+    demoLink: null,
+    codeLink: null,
+  },
+  {
+    id: "02",
     src: chatapp,
     title: "Chat-App",
     description:
@@ -20,7 +31,7 @@ const projects = [
     codeLink: "https://github.com/prishushishodia/ChatAPP-Client",
   },
   {
-    id: "02",
+    id: "03",
     src: uber,
     title: "Uber Clone",
     description:
@@ -30,7 +41,7 @@ const projects = [
     codeLink: "https://github.com/prishushishodia/UBER",
   },
   {
-    id: "03",
+    id: "04",
     src: oversocs,
     title: "Oversocs",
     description:
@@ -40,7 +51,7 @@ const projects = [
     codeLink: "https://github.com/prishushishodia/OVERSOCS",
   },
   {
-    id: "04",
+    id: "05",
     src: autocrawler,
     title: "AutoCrawler",
     description:
@@ -83,14 +94,14 @@ const Portfolio = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-elev text-ink px-6 md:px-12 py-28 md:py-40 overflow-hidden"
+      className="relative w-full bg-bg text-ink px-6 md:px-12 py-28 md:py-40 overflow-hidden"
     >
-      <span className="section-watermark font-grotesk">04</span>
+      <span className="section-watermark font-grotesk">05</span>
 
       <div className="max-w-[1400px] mx-auto relative z-10">
         {/* Section label */}
         <div className="flex items-center gap-4 mb-14 md:mb-20">
-          <span className="font-mono text-xs text-accent tracking-[0.2em]">(04)</span>
+          <span className="font-mono text-xs text-accent tracking-[0.2em]">(05)</span>
           <span className="font-mono text-xs text-muted tracking-[0.3em] uppercase">
             Selected Work
           </span>
@@ -117,10 +128,12 @@ const Portfolio = () => {
               >
                 {/* Image */}
                 <a
-                  href={demoLink}
-                  target="_blank"
+                  href={demoLink ?? undefined}
+                  target={demoLink ? "_blank" : undefined}
                   rel="noreferrer"
-                  className="relative block overflow-hidden rounded-xl border border-line aspect-[4/3] bg-bg"
+                  className={`relative block overflow-hidden rounded-xl border border-line aspect-[4/3] bg-bg ${
+                    demoLink ? "" : "cursor-default"
+                  }`}
                 >
                   <img
                     src={src}
@@ -130,9 +143,11 @@ const Portfolio = () => {
                   />
                   <div className="absolute inset-0 bg-bg/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   {/* Hover arrow */}
-                  <span className="absolute top-5 right-5 w-11 h-11 rounded-full bg-accent text-bg flex items-center justify-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-400">
-                    <HiOutlineArrowUpRight size={18} />
-                  </span>
+                  {demoLink && (
+                    <span className="absolute top-5 right-5 w-11 h-11 rounded-full bg-accent text-bg flex items-center justify-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-400">
+                      <HiOutlineArrowUpRight size={18} />
+                    </span>
+                  )}
                 </a>
 
                 {/* Meta */}
@@ -141,8 +156,8 @@ const Portfolio = () => {
                     <div className="flex items-baseline gap-3">
                       <span className="font-mono text-xs text-accent">/{id}</span>
                       <a
-                        href={demoLink}
-                        target="_blank"
+                        href={demoLink ?? undefined}
+                        target={demoLink ? "_blank" : undefined}
                         rel="noreferrer"
                         className="font-grotesk font-medium text-2xl md:text-3xl tracking-tight hover:text-accent transition-colors duration-300"
                       >
@@ -163,16 +178,22 @@ const Portfolio = () => {
                       ))}
                     </div>
                   </div>
-                  <a
-                    href={codeLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    title="Source code"
-                    aria-label={`${title} source code`}
-                    className="shrink-0 mt-1 p-3 border border-line rounded-full text-muted hover:text-accent hover:border-accent/40 transition-all duration-300"
-                  >
-                    <FiGithub size={17} />
-                  </a>
+                  {codeLink ? (
+                    <a
+                      href={codeLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      title="Source code"
+                      aria-label={`${title} source code`}
+                      className="shrink-0 mt-1 p-3 border border-line rounded-full text-muted hover:text-accent hover:border-accent/40 transition-all duration-300"
+                    >
+                      <FiGithub size={17} />
+                    </a>
+                  ) : (
+                    <span className="shrink-0 mt-2 px-3 py-1.5 font-mono text-[10px] tracking-[0.15em] uppercase text-accent border border-accent/30 rounded-full whitespace-nowrap">
+                      Client work
+                    </span>
+                  )}
                 </div>
               </article>
             )

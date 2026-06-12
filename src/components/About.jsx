@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 const stats = [
   { value: "05+", label: "Projects shipped" },
   { value: "02", label: "Internships" },
-  { value: "10+", label: "Technologies" },
+  { value: "'26", label: "B.Tech IT Graduate" },
 ];
 
 const About = () => {
@@ -58,34 +58,40 @@ const About = () => {
           className="about-reveal font-grotesk font-light leading-[1.15] tracking-tight max-w-5xl"
           style={{ fontSize: "clamp(1.75rem, 4.2vw, 3.5rem)" }}
         >
-          I take web products from{" "}
-          <em className="font-fraunces italic text-accent">idea</em> to{" "}
-          <em className="font-fraunces italic text-accent">deployment</em> —
-          interface, API, and the infrastructure underneath.
+          I engineer web products{" "}
+          <em className="font-fraunces italic text-accent">end to end</em> —
+          from system design to the{" "}
+          <em className="font-fraunces italic text-accent">last pixel</em>.
         </h2>
 
-        {/* Body copy + stats */}
+        {/* Body copy */}
         <div className="mt-16 md:mt-24 grid md:grid-cols-12 gap-12 md:gap-8">
           <div className="md:col-span-5 md:col-start-2 about-reveal">
             <p className="text-muted text-base md:text-lg leading-[1.9] font-light">
-              I&apos;m a full-stack developer working across the entire stack —{" "}
-              <span className="text-ink">React</span> and{" "}
-              <span className="text-ink">Next.js</span> on the front,{" "}
-              <span className="text-ink">Node.js</span>,{" "}
-              <span className="text-ink">NestJS</span> and{" "}
-              <span className="text-ink">PostgreSQL</span> behind. I care as
-              much about the last 5% of interaction polish as the architecture
-              underneath it.
+              I&apos;m a 22-year-old developer and Information Technology
+              graduate,
+              currently engineering backend services for an AI-powered
+              creator-analytics platform at{" "}
+              <span className="text-ink">Hypeliv</span> — NestJS services,
+              queue-driven jobs with BullMQ, PostgreSQL, and AWS
+              infrastructure running in production.
             </p>
           </div>
           <div className="md:col-span-5 about-reveal">
             <p className="text-muted text-base md:text-lg leading-[1.9] font-light">
-              I&apos;ve shipped five-plus end-to-end projects and production
-              work for real clients — realtime apps over{" "}
+              My work spans the whole product: realtime systems over{" "}
               <span className="text-ink">WebSockets</span>, REST APIs with
-              proper auth, job queues, and cloud infrastructure on{" "}
-              <span className="text-ink">AWS</span>. Clean, maintainable code
-              is the default, not the goal.
+              proper auth and role-based access, and interfaces in{" "}
+              <span className="text-ink">React</span> and{" "}
+              <span className="text-ink">Next.js</span> that move with intent.
+              I take on <span className="text-ink">freelance projects</span>{" "}
+              and <span className="text-ink">full-time roles</span>, on-site
+              or remote.
+            </p>
+            <p className="mt-6 text-muted text-base md:text-lg leading-[1.9] font-light">
+              Off the keyboard, I captain my college football team and have
+              played at district level — I&apos;m used to owning the result,
+              not just my position.
             </p>
           </div>
         </div>

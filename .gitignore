@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Original photo source (optimized copy lives in src/assets/me.jpg)
+Me-original.JPG

@@ -4,10 +4,11 @@ import { Link } from "react-scroll";
 
 const links = [
   { id: 1, link: "about", label: "About" },
-  { id: 2, link: "skills", label: "Stack" },
-  { id: 3, link: "experience", label: "Experience" },
-  { id: 4, link: "portfolio", label: "Work" },
-  { id: 5, link: "contact", label: "Contact" },
+  { id: 2, link: "services", label: "Services" },
+  { id: 3, link: "skills", label: "Stack" },
+  { id: 4, link: "experience", label: "Experience" },
+  { id: 5, link: "portfolio", label: "Work" },
+  { id: 6, link: "contact", label: "Contact" },
 ];
 
 const NavBar = () => {
@@ -47,7 +48,7 @@ const NavBar = () => {
       </Link>
 
       {/* Desktop menu */}
-      <nav className="hidden md:flex items-center gap-8">
+      <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
         {links.map(({ id, link, label }) => (
           <Link
             key={id}
@@ -76,14 +77,14 @@ const NavBar = () => {
       <button
         onClick={() => setNav(!nav)}
         aria-label={nav ? "Close menu" : "Open menu"}
-        className="cursor-pointer z-[60] text-ink md:hidden p-2 -mr-2"
+        className="cursor-pointer z-[60] text-ink lg:hidden p-2 -mr-2"
       >
         {nav ? <HiXMark size={26} /> : <HiMiniBars2 size={26} />}
       </button>
 
       {/* Mobile overlay */}
       <div
-        className={`fixed inset-0 h-[100dvh] bg-bg flex flex-col justify-center px-8 transform transition-all duration-500 ease-in-out z-50 md:hidden ${
+        className={`fixed inset-0 h-[100dvh] bg-bg flex flex-col justify-center px-8 transform transition-all duration-500 ease-in-out z-50 lg:hidden ${
           nav ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
         }`}
       >

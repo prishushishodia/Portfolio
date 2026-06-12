@@ -3,8 +3,8 @@ import { Link } from "react-scroll";
 import gsap from "gsap";
 import RotatingText from "./RotatingText";
 import VariableProximity from "./VariableProximity";
-import Galaxy from "./Galaxy";
 import { HiOutlineArrowDown, HiOutlineArrowUpRight } from "react-icons/hi2";
+import me from "../assets/me.jpg";
 
 const marqueeItems = [
   "React",
@@ -23,6 +23,7 @@ const marqueeItems = [
 
 const Home = () => {
   const homeRef = useRef(null);
+  const imageRef = useRef(null);
   const introRef = useRef(null);
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
@@ -33,15 +34,21 @@ const Home = () => {
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
     tl.fromTo(
-      introRef.current,
-      { opacity: 0, y: 24 },
-      { opacity: 1, y: 0, duration: 0.8, delay: 0.15 }
+      imageRef.current,
+      { opacity: 0, scale: 1.06 },
+      { opacity: 1, scale: 1, duration: 1.6, ease: "power2.out" }
     )
+      .fromTo(
+        introRef.current,
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        "-=1.0"
+      )
       .fromTo(
         titleRef.current.children,
         { opacity: 0, y: 60 },
         { opacity: 1, y: 0, duration: 1.1, stagger: 0.12 },
-        "-=0.45"
+        "-=0.5"
       )
       .fromTo(
         subtitleRef.current,
@@ -72,28 +79,23 @@ const Home = () => {
       ref={homeRef}
       className="relative min-h-screen bg-bg text-ink overflow-hidden"
     >
-      {/* Warm ember glow */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute -top-32 right-[-10%] w-[600px] h-[600px] bg-accent/[0.05] rounded-full blur-[140px]" />
-        <div className="absolute bottom-0 left-[-5%] w-[500px] h-[400px] bg-accent/[0.04] rounded-full blur-[120px]" />
-      </div>
-
-      {/* Starfield background */}
-      <div className="absolute inset-0 z-0">
-        <Galaxy
-          mouseRepulsion
-          mouseInteraction
-          density={0.5}
-          glowIntensity={0.1}
-          saturation={0.3}
-          hueShift={25}
-          twinkleIntensity={0.25}
-          starSpeed={0.25}
+      {/* Full-bleed photo, graded into the palette */}
+      <div ref={imageRef} className="absolute inset-0 z-0">
+        <img
+          src={me}
+          alt="Priyanshu Shishodia watching a sunset"
+          fetchPriority="high"
+          className="w-full h-full object-cover"
+          style={{ objectPosition: "62% 35%" }}
         />
+        {/* Warm grade + legibility gradients */}
+        <div className="absolute inset-0 bg-accent/10 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-b from-bg/80 via-bg/10 to-bg" />
+        <div className="absolute inset-0 bg-gradient-to-l from-bg/60 via-bg/20 to-transparent" />
       </div>
 
       {/* Foreground content */}
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 min-h-screen flex flex-col justify-center pt-24 pb-36">
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 min-h-screen flex flex-col items-end justify-center text-right pt-24 pb-36">
         {/* Intro line */}
         <div ref={introRef} className="mb-8 md:mb-10">
           <div className="inline-flex items-center gap-3 mb-5">
@@ -102,7 +104,7 @@ const Home = () => {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
             </span>
             <span className="font-mono text-[11px] tracking-[0.25em] text-muted uppercase">
-              Open to opportunities
+              Freelance & full-time
             </span>
           </div>
           <p className="font-mono text-sm md:text-base text-muted tracking-wide">
@@ -128,7 +130,7 @@ const Home = () => {
               falloff="exponential"
             />
           </span>
-          <span className="block font-fraunces italic font-light text-accent mt-1 md:mt-2 pr-4">
+          <span className="block font-fraunces italic font-light text-accent mt-1 md:mt-2 pl-4">
             <VariableProximity
               label="Developer"
               containerRef={homeRef}
@@ -142,7 +144,6 @@ const Home = () => {
 
         {/* Rotating subtitle */}
         <div ref={subtitleRef} className="mt-8 md:mt-10 flex items-center gap-4">
-          <div className="w-10 h-px bg-accent/70" />
           <div className="h-[1.6rem] overflow-hidden">
             <RotatingText
               texts={[
@@ -150,18 +151,15 @@ const Home = () => {
                 "REST APIs that scale",
                 "Interfaces with motion",
               ]}
-              mainClassName="font-mono text-xs md:text-sm tracking-[0.2em] text-muted uppercase"
-              initial={{ y: "110%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "-110%" }}
-              transition={{ type: "spring", damping: 28, stiffness: 320 }}
+              className="font-mono text-xs md:text-sm tracking-[0.2em] text-muted uppercase"
               rotationInterval={2600}
             />
           </div>
+          <div className="w-10 h-px bg-accent/70" />
         </div>
 
         {/* CTAs */}
-        <div ref={ctaRef} className="mt-12 flex flex-wrap items-center gap-6">
+        <div ref={ctaRef} className="mt-12 flex flex-wrap items-center justify-end gap-6">
           <Link
             to="portfolio"
             smooth
@@ -193,7 +191,7 @@ const Home = () => {
         smooth
         duration={700}
         offset={-70}
-        className="absolute bottom-24 right-6 md:right-12 z-10 cursor-pointer hidden sm:flex flex-col items-center gap-3"
+        className="absolute bottom-24 left-6 md:left-12 z-10 cursor-pointer hidden sm:flex flex-col items-center gap-3"
       >
         <span
           className="font-mono text-[10px] tracking-[0.3em] text-muted uppercase"
@@ -211,7 +209,11 @@ const Home = () => {
       >
         <div className="marquee-track">
           {[0, 1].map((dup) => (
-            <div key={dup} className="flex shrink-0 items-center" aria-hidden={dup === 1}>
+            <div
+              key={dup}
+              className="flex shrink-0 items-center"
+              aria-hidden={dup === 1}
+            >
               {marqueeItems.map((item) => (
                 <span
                   key={`${dup}-${item}`}
