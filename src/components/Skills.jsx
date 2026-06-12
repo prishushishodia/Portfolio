@@ -52,14 +52,14 @@ const Skills = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-elev text-ink px-6 md:px-12 py-28 md:py-40 overflow-hidden"
+      className="relative w-full bg-bg text-ink px-6 md:px-12 py-28 md:py-40 overflow-hidden"
     >
-      <span className="section-watermark font-grotesk">02</span>
+      <span className="section-watermark font-grotesk">03</span>
 
       <div className="max-w-[1400px] mx-auto relative z-10">
         {/* Section label */}
         <div className="skill-row flex items-center gap-4 mb-14 md:mb-20">
-          <span className="font-mono text-xs text-accent tracking-[0.2em]">(02)</span>
+          <span className="font-mono text-xs text-accent tracking-[0.2em]">(03)</span>
           <span className="font-mono text-xs text-muted tracking-[0.3em] uppercase">
             Stack
           </span>

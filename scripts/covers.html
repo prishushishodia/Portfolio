@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Fraunces:ital,opsz,wght@1,9..144,300..700&family=JetBrains+Mono:wght@300..700&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; }
+
+  .cover {
+    width: 1600px;
+    height: 1200px;
+    position: relative;
+    overflow: hidden;
+    background: #14120f;
+    font-family: "Space Grotesk", sans-serif;
+    color: #ede8df;
+  }
+  /* dot grid */
+  .cover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(237,232,223,0.05) 2px, transparent 2px);
+    background-size: 56px 56px;
+  }
+  /* vignette */
+  .cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 70% 30%, rgba(255,92,40,0.07), transparent 55%),
+      linear-gradient(to bottom, rgba(13,12,10,0.55), transparent 30%, transparent 70%, rgba(13,12,10,0.75));
+  }
+  .label {
+    position: absolute;
+    top: 72px;
+    left: 80px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 26px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #8e887a;
+    z-index: 3;
+  }
+  .label b { color: #ff5c28; font-weight: 500; margin-right: 20px; }
+  .wordmark {
+    position: absolute;
+    left: 80px;
+    bottom: 72px;
+    font-size: 150px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    z-index: 3;
+  }
+  .wordmark em {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-weight: 340;
+    color: #ff5c28;
+  }
+  .ghost {
+    position: absolute;
+    right: -30px;
+    bottom: -60px;
+    font-size: 560px;
+    font-weight: 600;
+    letter-spacing: -0.05em;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(237,232,223,0.09);
+    z-index: 1;
+    line-height: 1;
+  }
+  .mono { font-family: "JetBrains Mono", monospace; }
+
+  /* ——— 0. CREATOR VISION ——— */
+  .player {
+    position: absolute; top: 220px; left: 80px; width: 1010px; z-index: 2;
+    background: #100e0b; border: 1px solid rgba(237,232,223,0.12);
+    border-radius: 24px; overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+  }
+  .player .frame {
+    position: relative; height: 560px;
+    background:
+      radial-gradient(ellipse at 30% 60%, rgba(255,92,40,0.10), transparent 55%),
+      linear-gradient(135deg, #1d1a14, #14110d 70%);
+  }
+  .bbox {
+    position: absolute; border: 3px solid #ff5c28; border-radius: 10px;
+  }
+  .bbox .tag {
+    position: absolute; top: -44px; left: -3px;
+    font-family: "JetBrains Mono", monospace; font-size: 22px; letter-spacing: 0.08em;
+    background: #ff5c28; color: #14120f; padding: 8px 16px; border-radius: 8px; font-weight: 600;
+    white-space: nowrap;
+  }
+  .bbox.alt { border-color: rgba(237,232,223,0.55); }
+  .bbox.alt .tag { background: #ede8df; }
+  .playbar {
+    display: flex; align-items: center; gap: 24px; padding: 26px 32px;
+    border-top: 1px solid rgba(237,232,223,0.08);
+    font-family: "JetBrains Mono", monospace; font-size: 22px; color: #8e887a;
+  }
+  .playbar .track { flex: 1; height: 6px; border-radius: 3px; background: rgba(237,232,223,0.12); position: relative; }
+  .playbar .track i { position: absolute; left: 0; top: 0; bottom: 0; width: 62%; background: #ff5c28; border-radius: 3px; display: block; }
+  .signal-chips { position: absolute; top: 250px; right: 110px; z-index: 2; display: flex; flex-direction: column; gap: 22px; }
+  .schip {
+    font-family: "JetBrains Mono", monospace; font-size: 23px; letter-spacing: 0.12em;
+    color: #b6afa0; border: 1px solid rgba(237,232,223,0.16); border-radius: 999px;
+    padding: 16px 30px; background: rgba(20,17,13,0.8); width: fit-content;
+  }
+  .schip b { color: #ff5c28; font-weight: 500; }
+
+  /* ——— 1. CHAT-APP ——— */
+  .bubbles { position: absolute; top: 250px; left: 80px; width: 880px; z-index: 2; display: flex; flex-direction: column; gap: 28px; }
+  .bubble {
+    padding: 34px 44px;
+    border-radius: 36px;
+    background: #211e19;
+    border: 1px solid rgba(237,232,223,0.10);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 30px;
+    color: #b6afa0;
+    width: fit-content;
+    border-bottom-left-radius: 8px;
+  }
+  .bubble.me {
+    align-self: flex-end;
+    background: #ff5c28;
+    color: #14120f;
+    border: none;
+    border-bottom-left-radius: 36px;
+    border-bottom-right-radius: 8px;
+  }
+  .bubble.typing { display: flex; gap: 14px; align-items: center; }
+  .bubble.typing i { width: 14px; height: 14px; border-radius: 50%; background: #8e887a; display: block; }
+  .bubble .meta { display:block; font-size: 20px; opacity: 0.55; margin-top: 12px; }
+  .ws-chip {
+    position: absolute; top: 290px; right: 120px; z-index: 2;
+    font-family: "JetBrains Mono", monospace; font-size: 24px; letter-spacing: 0.15em;
+    color: #ff5c28; border: 1px solid rgba(255,92,40,0.45); border-radius: 999px;
+    padding: 18px 34px; background: rgba(255,92,40,0.07);
+  }
+
+  /* ——— 2. UBER CLONE ——— */
+  .map { position: absolute; inset: 0; z-index: 2; }
+  .fare {
+    position: absolute; top: 330px; right: 140px; z-index: 3;
+    background: #1b1813; border: 1px solid rgba(237,232,223,0.12); border-radius: 28px;
+    padding: 36px 44px; font-family: "JetBrains Mono", monospace;
+  }
+  .fare .row1 { font-size: 26px; color: #8e887a; letter-spacing: 0.2em; text-transform: uppercase; }
+  .fare .row2 { font-size: 54px; color: #ede8df; margin-top: 14px; font-weight: 600; }
+  .fare .row3 { font-size: 24px; color: #ff5c28; margin-top: 12px; letter-spacing: 0.1em; }
+
+  /* ——— 3. OVERSOCS ——— */
+  .shop { position: absolute; top: 240px; left: 80px; right: 80px; display: flex; gap: 40px; z-index: 2; }
+  .product {
+    flex: 1; background: #1b1813; border: 1px solid rgba(237,232,223,0.10);
+    border-radius: 28px; padding: 40px; position: relative;
+  }
+  .product .img {
+    height: 290px; border-radius: 18px;
+    background: linear-gradient(135deg, #26221b, #1b1813 60%);
+    display: flex; align-items: center; justify-content: center; font-size: 130px;
+  }
+  .product.hot .img { background: linear-gradient(135deg, rgba(255,92,40,0.35), rgba(255,92,40,0.08)); }
+  .product .name { margin-top: 30px; font-size: 32px; font-weight: 500; }
+  .product .price { margin-top: 10px; font-family: "JetBrains Mono", monospace; font-size: 26px; color: #8e887a; }
+  .product .cart {
+    margin-top: 26px; display: inline-block; font-family: "JetBrains Mono", monospace;
+    font-size: 21px; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 16px 28px; border-radius: 999px; background: #ff5c28; color: #14120f; font-weight: 600;
+  }
+  .product .cart.ghosted { background: transparent; border: 1px solid rgba(237,232,223,0.25); color: #ede8df; font-weight: 400; }
+  .sale-chip {
+    position: absolute; top: -22px; right: 28px; background: #ede8df; color: #14120f;
+    font-family: "JetBrains Mono", monospace; font-size: 20px; letter-spacing: 0.12em;
+    padding: 12px 22px; border-radius: 999px; font-weight: 700;
+  }
+
+  /* ——— 4. AUTOCRAWLER ——— */
+  .graph { position: absolute; inset: 0; z-index: 1; }
+  .term {
+    position: absolute; top: 230px; left: 80px; width: 1000px; z-index: 2;
+    background: rgba(20,17,13,0.92); border: 1px solid rgba(237,232,223,0.12);
+    border-radius: 24px; overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+  }
+  .term .bar { display: flex; gap: 14px; padding: 24px 30px; border-bottom: 1px solid rgba(237,232,223,0.08); }
+  .term .bar i { width: 20px; height: 20px; border-radius: 50%; display: block; background: #3a352c; }
+  .term .bar i:first-child { background: #ff5c28; }
+  .term pre {
+    padding: 36px 40px; font-family: "JetBrains Mono", monospace; font-size: 27px;
+    line-height: 1.85; color: #b6afa0;
+  }
+  .term .ok { color: #ff5c28; }
+  .term .dim { color: #6e6a5e; }
+</style>
+</head>
+<body>
+
+<!-- 0. CREATOR VISION -->
+<div class="cover" id="creatorvision">
+  <div class="label"><b>/01</b>AI Brand Detection · Creator Analytics</div>
+  <div class="player">
+    <div class="frame">
+      <div class="bbox" style="left:120px; top:150px; width:300px; height:280px;">
+        <span class="tag">logo · 0.94</span>
+      </div>
+      <div class="bbox alt" style="left:560px; top:260px; width:340px; height:220px;">
+        <span class="tag">product · 0.87</span>
+      </div>
+    </div>
+    <div class="playbar">
+      <span>▶</span>
+      <div class="track"><i></i></div>
+      <span>00:42 / 01:08</span>
+    </div>
+  </div>
+  <div class="signal-chips">
+    <span class="schip"><b>vision</b> · gemini</span>
+    <span class="schip"><b>audio</b> · transcribed</span>
+    <span class="schip"><b>ocr</b> · captions</span>
+    <span class="schip"><b>312</b> detections</span>
+  </div>
+  <div class="ghost">01</div>
+  <div class="wordmark">Creator<em>Vision</em></div>
+</div>
+
+<!-- 1. CHAT-APP -->
+<div class="cover" id="chatapp">
+  <div class="label"><b>/02</b>Realtime Messaging</div>
+  <div class="bubbles">
+    <div class="bubble">socket connected — room #builds</div>
+    <div class="bubble me">shipping the new release tonight<span class="meta">delivered · 21:42</span></div>
+    <div class="bubble">file received: changelog.pdf</div>
+    <div class="bubble typing"><i></i><i></i><i></i></div>
+  </div>
+  <div class="ws-chip">ws · latency 42ms</div>
+  <div class="ghost">02</div>
+  <div class="wordmark">Chat<em>App</em></div>
+</div>
+
+<!-- 2. UBER CLONE -->
+<div class="cover" id="uber">
+  <svg class="map" viewBox="0 0 1600 1200">
+    <g stroke="rgba(237,232,223,0.06)" stroke-width="2">
+      <path d="M0 300 H1600 M0 560 H1600 M0 820 H1600 M260 0 V1200 M620 0 V1200 M980 0 V1200 M1340 0 V1200" />
+    </g>
+    <path d="M180 950 C 420 870, 380 560, 660 520 S 1080 420, 1240 330"
+          fill="none" stroke="#ff5c28" stroke-width="7" stroke-dasharray="22 18" stroke-linecap="round" />
+    <circle cx="180" cy="950" r="16" fill="#ff5c28" />
+    <circle cx="180" cy="950" r="34" fill="none" stroke="rgba(255,92,40,0.4)" stroke-width="3" />
+    <circle cx="1240" cy="330" r="16" fill="#ede8df" />
+    <circle cx="1240" cy="330" r="34" fill="none" stroke="rgba(237,232,223,0.4)" stroke-width="3" />
+  </svg>
+  <div class="label"><b>/03</b>Ride Booking · Live Tracking</div>
+  <div class="fare">
+    <div class="row1">Trip fare</div>
+    <div class="row2">₹ 248.00</div>
+    <div class="row3">12.4 km · driver en route</div>
+  </div>
+  <div class="ghost">03</div>
+  <div class="wordmark">Uber<em>Clone</em></div>
+</div>
+
+<!-- 3. OVERSOCS -->
+<div class="cover" id="oversocs">
+  <div class="label"><b>/04</b>E-commerce</div>
+  <div class="shop">
+    <div class="product">
+      <div class="img">🧦</div>
+      <div class="name">Court Classic</div>
+      <div class="price">₹ 449</div>
+      <div class="cart ghosted">Add to cart</div>
+    </div>
+    <div class="product hot">
+      <div class="sale-chip">BESTSELLER</div>
+      <div class="img">🧦</div>
+      <div class="name">Ember Crew</div>
+      <div class="price">₹ 549</div>
+      <div class="cart">Add to cart</div>
+    </div>
+    <div class="product">
+      <div class="img">🧦</div>
+      <div class="name">Midnight Low</div>
+      <div class="price">₹ 399</div>
+      <div class="cart ghosted">Add to cart</div>
+    </div>
+  </div>
+  <div class="ghost">04</div>
+  <div class="wordmark">Over<em>socs</em></div>
+</div>
+
+<!-- 4. AUTOCRAWLER -->
+<div class="cover" id="autocrawler">
+  <svg class="graph" viewBox="0 0 1600 1200">
+    <g stroke="rgba(237,232,223,0.10)" stroke-width="2">
+      <path d="M1180 280 L1340 200 M1180 280 L1390 360 M1180 280 L1240 520 M1240 520 L1430 600 M1240 520 L1120 700 M1120 700 L1300 840 M1390 360 L1430 600" />
+    </g>
+    <g fill="#221f19" stroke="rgba(237,232,223,0.25)" stroke-width="2">
+      <circle cx="1340" cy="200" r="16" /><circle cx="1390" cy="360" r="16" />
+      <circle cx="1430" cy="600" r="16" /><circle cx="1120" cy="700" r="16" />
+      <circle cx="1300" cy="840" r="16" />
+    </g>
+    <circle cx="1180" cy="280" r="22" fill="#ff5c28" />
+    <circle cx="1240" cy="520" r="22" fill="#ff5c28" />
+  </svg>
+  <div class="label"><b>/05</b>Scraping &amp; Automation</div>
+  <div class="term">
+    <div class="bar"><i></i><i></i><i></i></div>
+    <pre>$ autocrawl --recursive https://example.com
+<span class="dim">[queue]</span> 148 urls discovered · depth 2
+<span class="ok">200</span>  /products            1.2s   parsed
+<span class="ok">200</span>  /products/socks      0.8s   parsed
+<span class="dim">429</span>  /api/inventory       retry in 3s…
+<span class="ok">200</span>  /api/inventory       0.6s   parsed
+<span class="dim">[done]</span> 312 records → export.json</pre>
+  </div>
+  <div class="ghost">05</div>
+  <div class="wordmark">Auto<em>Crawler</em></div>
+</div>
+
+</body>
+</html>

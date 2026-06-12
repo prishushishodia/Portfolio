@@ -7,6 +7,7 @@ import LazySection from "./components/LazySection";
 // Below-the-fold sections are code-split and mounted only when scrolled near.
 // Home stays eager — it's the above-the-fold hero.
 const About = lazy(() => import("./components/About"));
+const Services = lazy(() => import("./components/Services"));
 const Skills = lazy(() => import("./components/Skills"));
 const Experience = lazy(() => import("./components/Experience"));
 const Portfolio = lazy(() => import("./components/Portfolio"));
@@ -23,6 +24,9 @@ function App() {
       <Home />
       <LazySection anchorId="about">
         <About />
+      </LazySection>
+      <LazySection anchorId="services">
+        <Services />
       </LazySection>
       <LazySection anchorId="skills">
         <Skills />

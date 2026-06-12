@@ -35,14 +35,14 @@ const Contact = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-bg text-ink px-6 md:px-12 pt-28 md:pt-40 pb-10 overflow-hidden"
+      className="relative w-full bg-elev text-ink px-6 md:px-12 pt-28 md:pt-40 pb-10 overflow-hidden"
     >
-      <span className="section-watermark font-grotesk">05</span>
+      <span className="section-watermark font-grotesk">06</span>
 
       <div className="max-w-[1400px] mx-auto relative z-10">
         {/* Section label */}
         <div className="contact-reveal flex items-center gap-4 mb-14 md:mb-20">
-          <span className="font-mono text-xs text-accent tracking-[0.2em]">(05)</span>
+          <span className="font-mono text-xs text-accent tracking-[0.2em]">(06)</span>
           <span className="font-mono text-xs text-muted tracking-[0.3em] uppercase">
             Contact
           </span>
@@ -77,9 +77,9 @@ const Contact = () => {
           {/* Left — socials */}
           <div className="contact-reveal md:col-span-4 space-y-8">
             <p className="text-muted font-light text-base leading-[1.85] max-w-sm">
-              Open to new opportunities, collaborations, and interesting
-              conversations. The form works — or just say hi on either of
-              these.
+              Taking on freelance projects and open to full-time roles —
+              on-site or remote. The form works, or just say hi on either
+              of these.
             </p>
             <div className="flex flex-col gap-1">
               {[
