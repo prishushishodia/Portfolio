@@ -84,7 +84,7 @@ const Home = () => {
         <img
           src={me}
           alt="Priyanshu Shishodia watching a sunset"
-          fetchPriority="high"
+          fetchpriority="high"
           className="w-full h-full object-cover"
           style={{ objectPosition: "62% 35%" }}
         />
@@ -109,8 +109,8 @@ const Home = () => {
           </div>
           <p className="font-mono text-sm md:text-base text-muted tracking-wide">
             Hi, I&apos;m{" "}
-            <span className="text-ink">Priyanshu Shishodia</span> — I build for
-            the web.
+            <span className="text-ink">Priyanshu Shishodia</span> — full-stack
+            developer.
           </p>
         </div>
 
@@ -122,7 +122,7 @@ const Home = () => {
         >
           <span className="block font-grotesk uppercase tracking-tight">
             <VariableProximity
-              label="Full Stack"
+              label="I Build"
               containerRef={homeRef}
               fromFontVariationSettings='"wght" 350'
               toFontVariationSettings='"wght" 700'
@@ -132,7 +132,7 @@ const Home = () => {
           </span>
           <span className="block font-fraunces italic font-light text-accent mt-1 md:mt-2 pl-4">
             <VariableProximity
-              label="Developer"
+              label="the whole thing."
               containerRef={homeRef}
               fromFontVariationSettings='"wght" 340'
               toFontVariationSettings='"wght" 640'

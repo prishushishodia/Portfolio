@@ -25,7 +25,7 @@ page.on("pageerror", (err) => errors.push(String(err)));
 await page.goto("http://localhost:5175/", { waitUntil: "networkidle0", timeout: 30000 });
 await new Promise((r) => setTimeout(r, 1500));
 
-const sections = ["home", "about", "skills", "experience", "portfolio", "contact"];
+const sections = ["home", "about", "services", "skills", "experience", "portfolio", "contact"];
 for (const s of sections) {
   await page.evaluate((id) => {
     const el = document.getElementById(id) || document.getElementsByName(id)[0];
