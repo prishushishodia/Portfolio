@@ -1,10 +1,11 @@
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useMemo } from "react";
 
 /* ─────────────────────────────────────────────────────────
-   Variable Proximity – React Bits
-   Animates font-variation-settings "wght" (and any other
-   axis) based on cursor distance from each character.
-   Requires a variable font that exposes the axes you pass.
+   Variable Proximity
+   Animates font-variation-settings (e.g. "wght") based on
+   cursor distance from each character. Writes styles
+   directly to the DOM inside a rAF loop — no per-mousemove
+   React re-renders.
 ──────────────────────────────────────────────────────────── */
 
 function parseFVS(settings) {
@@ -15,104 +16,99 @@ function parseFVS(settings) {
   return map;
 }
 
-function buildFVS(map) {
-  return Object.entries(map)
-    .map(([axis, v]) => `"${axis}" ${v.toFixed(2)}`)
-    .join(', ');
-}
-
 function lerp(a, b, t) {
   return a + (b - a) * t;
 }
 
 export default function VariableProximity({
   label,
-  className = '',
+  className = "",
   style = {},
-  /* font-variation-settings when cursor is far away */
   fromFontVariationSettings = '"wght" 400',
-  /* font-variation-settings when cursor is directly over */
-  toFontVariationSettings   = '"wght" 900',
-  /* ref of the element whose mousemove events are tracked */
+  toFontVariationSettings = '"wght" 700',
   containerRef,
-  /* px radius of influence */
-  radius  = 120,
-  /* 'linear' | 'exponential' | 'gaussian' */
-  falloff = 'linear',
+  radius = 140,
+  falloff = "linear",
 }) {
-  const chars      = label.split('');
+  const chars = useMemo(() => label.split(""), [label]);
   const letterRefs = useRef([]);
-
-  const [fvs, setFvs] = useState(() =>
-    chars.map(() => fromFontVariationSettings)
-  );
-
-  // keep parsed refs up-to-date if props change
-  const fromParsed = useRef(parseFVS(fromFontVariationSettings));
-  const toParsed   = useRef(parseFVS(toFontVariationSettings));
-
-  useEffect(() => {
-    fromParsed.current = parseFVS(fromFontVariationSettings);
-    toParsed.current   = parseFVS(toFontVariationSettings);
-  }, [fromFontVariationSettings, toFontVariationSettings]);
-
-  const proximity = useCallback(
-    (dist) => {
-      const t = Math.max(0, 1 - dist / radius);
-      if (falloff === 'exponential') return t * t * t;
-      if (falloff === 'gaussian')
-        return Math.exp(-((dist / radius) ** 2) * 4);
-      return t; // linear
-    },
-    [radius, falloff]
-  );
 
   useEffect(() => {
     const el = containerRef?.current ?? document.body;
+    const from = parseFVS(fromFontVariationSettings);
+    const to = parseFVS(toFontVariationSettings);
+
+    const proximity = (dist) => {
+      const t = Math.max(0, 1 - dist / radius);
+      if (falloff === "exponential") return t * t * t;
+      if (falloff === "gaussian") return Math.exp(-((dist / radius) ** 2) * 4);
+      return t;
+    };
+
+    let raf = null;
+    const mouse = { x: -9999, y: -9999 };
+
+    const render = () => {
+      raf = null;
+      for (const ref of letterRefs.current) {
+        if (!ref) continue;
+        const { left, top, width, height } = ref.getBoundingClientRect();
+        const dist = Math.hypot(
+          mouse.x - (left + width / 2),
+          mouse.y - (top + height / 2)
+        );
+        const t = proximity(dist);
+        let fvs = "";
+        for (const axis in from) {
+          if (axis in to) {
+            if (fvs) fvs += ", ";
+            fvs += `"${axis}" ${lerp(from[axis], to[axis], t).toFixed(2)}`;
+          }
+        }
+        ref.style.fontVariationSettings = fvs;
+      }
+    };
+
+    const schedule = () => {
+      if (raf === null) raf = requestAnimationFrame(render);
+    };
 
     const onMove = (e) => {
-      setFvs(
-        letterRefs.current.map((ref) => {
-          if (!ref) return fromFontVariationSettings;
-          const { left, top, width, height } = ref.getBoundingClientRect();
-          const dist = Math.hypot(
-            e.clientX - (left + width  / 2),
-            e.clientY - (top  + height / 2)
-          );
-          const t   = proximity(dist);
-          const out = {};
-          for (const axis in fromParsed.current) {
-            if (axis in toParsed.current) {
-              out[axis] = lerp(fromParsed.current[axis], toParsed.current[axis], t);
-            }
-          }
-          return buildFVS(out);
-        })
-      );
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      schedule();
     };
 
-    const onLeave = () =>
-      setFvs(chars.map(() => fromFontVariationSettings));
+    const onLeave = () => {
+      mouse.x = -9999;
+      mouse.y = -9999;
+      schedule();
+    };
 
-    el.addEventListener('mousemove', onMove);
-    el.addEventListener('mouseleave', onLeave);
+    el.addEventListener("mousemove", onMove, { passive: true });
+    el.addEventListener("mouseleave", onLeave);
     return () => {
-      el.removeEventListener('mousemove', onMove);
-      el.removeEventListener('mouseleave', onLeave);
+      el.removeEventListener("mousemove", onMove);
+      el.removeEventListener("mouseleave", onLeave);
+      if (raf !== null) cancelAnimationFrame(raf);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [containerRef, fromFontVariationSettings, proximity]);
+  }, [containerRef, fromFontVariationSettings, toFontVariationSettings, radius, falloff]);
 
   return (
     <span className={className} style={style} aria-label={label}>
       {chars.map((char, i) => (
         <span
           key={i}
-          ref={(el) => { letterRefs.current[i] = el; }}
-          style={{ fontVariationSettings: fvs[i], display: 'inline-block' }}
+          ref={(el) => {
+            letterRefs.current[i] = el;
+          }}
+          style={{
+            fontVariationSettings: fromFontVariationSettings,
+            display: "inline-block",
+          }}
           aria-hidden="true"
         >
-          {char === ' ' ? '\u00A0' : char}
+          {char === " " ? " " : char}
         </span>
       ))}
     </span>

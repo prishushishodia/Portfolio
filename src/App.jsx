@@ -15,6 +15,9 @@ const Contact = lazy(() => import("./components/Contact"));
 function App() {
   return (
     <>
+      {/* Film grain over everything */}
+      <div className="grain" aria-hidden="true" />
+
       <NavBar />
       <SocialLinks />
       <Home />

@@ -1,29 +1,30 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const experiences = [
   {
-    company: "Techkrate",
-    role: "Full Stack Developer Intern",
-    summary:
-      "Architected and delivered backend modules for a production e-commerce platform using Node.js, Express.js, and MongoDB.",
-    points: [
-      "Built secure REST APIs for product management, cart, and order processing with JWT authentication and role-based access control.",
-      "Contributed to the React.js frontend — implemented responsive product listings and checkout flows integrated with backend business logic.",
-    ],
-    stack: ["Node.js", "Express.js", "MongoDB", "React.js", "JWT"],
-  },
-  {
     company: "Hypeliv",
     role: "Full Stack Developer Intern",
     summary:
-      "Engineered and delivered a production website for a US-based client using React.js with a headless CMS backend.",
+      "Engineered and delivered a production website for a US-based client using React with a headless CMS backend.",
     points: [
-      "Built backend services for an AI-powered creator analytics platform using NestJS, BullMQ for async job queuing, and PostgreSQL via TypeORM; integrated AWS S3, Rekognition, and SES for media storage, content moderation, and transactional email.",
-      "Participated in code reviews, debugging sessions, and sprint planning to drive iterative feature delivery.",
+      "Built backend services for an AI-powered creator analytics platform with NestJS, BullMQ for async job queues, and PostgreSQL via TypeORM.",
+      "Integrated AWS S3, Rekognition, and SES for media storage, content moderation, and transactional email.",
+      "Took part in code reviews, debugging sessions, and sprint planning to drive iterative delivery.",
     ],
-    stack: ["React.js", "NestJS", "BullMQ", "PostgreSQL", "TypeORM", "AWS"],
+    stack: ["React", "NestJS", "BullMQ", "PostgreSQL", "TypeORM", "AWS"],
+  },
+  {
+    company: "Techkrate",
+    role: "Full Stack Developer Intern",
+    summary:
+      "Architected and delivered backend modules for a production e-commerce platform on Node.js, Express, and MongoDB.",
+    points: [
+      "Built secure REST APIs for product management, cart, and order processing with JWT authentication and role-based access control.",
+      "Implemented responsive product listings and checkout flows in React, wired to backend business logic.",
+    ],
+    stack: ["Node.js", "Express", "MongoDB", "React", "JWT"],
   },
 ];
 
@@ -35,131 +36,131 @@ const Experience = () => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.fromTo(
-      ".exp-card",
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        stagger: 0.18,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".exp-card",
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.18,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
 
-    // Fill the timeline bar from top to bottom as the user scrolls through it.
-    const fillTween = gsap.fromTo(
-      fillRef.current,
-      { scaleY: 0 },
-      {
-        scaleY: 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: trackRef.current,
-          start: "top 65%",
-          end: "bottom 75%",
-          scrub: true,
-        },
-      }
-    );
+      // Fill the timeline rail as the user scrolls through it.
+      gsap.fromTo(
+        fillRef.current,
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: trackRef.current,
+            start: "top 65%",
+            end: "bottom 75%",
+            scrub: true,
+          },
+        }
+      );
+    }, sectionRef);
 
-    return () => {
-      fillTween.scrollTrigger?.kill();
-      fillTween.kill();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="w-full min-h-screen bg-[#0a0a0f] dot-grid flex items-center justify-center px-6 py-24 scroll-mt-20 relative"
+      className="relative w-full bg-bg text-ink px-6 md:px-12 py-28 md:py-40 overflow-hidden"
     >
-      {/* Ambient glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 right-1/4 w-[600px] h-[400px] bg-blue-600/4 rounded-full blur-[100px]" />
-      </div>
+      <span className="section-watermark font-grotesk">03</span>
 
-      <div className="max-w-screen-lg mx-auto w-full text-white relative z-10">
-
-        {/* Section Label + Heading */}
-        <div className="mb-14">
-          <p className="text-xs font-Montserrat tracking-[0.35em] text-cyan-400 uppercase mb-3">
-            03 — Where I've Worked
-          </p>
-          <h2 className="text-4xl md:text-5xl font-nike tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400 inline-block">
-            EXPERIENCE
-          </h2>
-          <div className="mt-4 w-16 h-[2px] bg-gradient-to-r from-cyan-400 to-transparent rounded-full" />
+      <div className="max-w-[1400px] mx-auto relative z-10">
+        {/* Section label */}
+        <div className="flex items-center gap-4 mb-14 md:mb-20">
+          <span className="font-mono text-xs text-accent tracking-[0.2em]">(03)</span>
+          <span className="font-mono text-xs text-muted tracking-[0.3em] uppercase">
+            Experience
+          </span>
+          <div className="flex-1 h-px bg-line" />
         </div>
 
+        <h2
+          className="font-grotesk font-light tracking-tight mb-16 md:mb-24"
+          style={{ fontSize: "clamp(1.75rem, 4.2vw, 3.5rem)" }}
+        >
+          Where I&apos;ve{" "}
+          <em className="font-fraunces italic text-accent">worked</em>.
+        </h2>
+
         {/* Timeline */}
-        <div className="relative">
-          {/* Vertical line — dark track that fills with cyan on scroll */}
+        <div className="relative md:ml-1">
+          {/* Rail */}
           <div
             ref={trackRef}
-            className="absolute left-[7px] md:left-[9px] top-2 bottom-2 w-[1.5px] bg-white/[0.06] overflow-hidden"
+            className="absolute left-[5px] top-2 bottom-2 w-px bg-ink/[0.08] overflow-hidden"
           >
             <div
               ref={fillRef}
-              className="absolute inset-0 origin-top bg-gradient-to-b from-cyan-300 via-cyan-400 to-blue-500"
+              className="absolute inset-0 origin-top bg-accent"
               style={{ transform: "scaleY(0)" }}
             />
           </div>
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-16 md:gap-20">
             {experiences.map(({ company, role, summary, points, stack }) => (
-              <div key={company} className="exp-card relative pl-10 md:pl-14">
-                {/* Timeline dot */}
-                <span className="absolute left-0 top-7 w-4 h-4 rounded-full bg-[#0a0a0f] border-2 border-cyan-400 shadow-[0_0_12px_rgba(6,182,212,0.5)]">
-                  <span className="absolute inset-[3px] rounded-full bg-cyan-400 animate-pulse" />
+              <article key={company} className="exp-card relative pl-10 md:pl-16">
+                {/* Node */}
+                <span className="absolute left-0 top-3 w-[11px] h-[11px] rounded-full border border-accent bg-bg">
+                  <span className="absolute inset-[2.5px] rounded-full bg-accent" />
                 </span>
 
-                <div className="bg-white/[0.03] backdrop-blur-sm border border-white/[0.07] rounded-2xl p-7 md:p-9 card-glow hover:border-cyan-400/25 transition-all duration-500">
-                  {/* Company + role */}
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-                    <h3 className="text-2xl md:text-3xl font-nike tracking-wider text-white">
-                      {company}
-                    </h3>
-                    <span className="text-xs font-Montserrat tracking-[0.15em] text-cyan-300 uppercase font-light">
-                      {role}
-                    </span>
-                  </div>
-
-                  {/* Summary */}
-                  <p className="text-gray-300 text-base md:text-[1.05rem] leading-[1.8] font-light mb-5">
-                    {summary}
-                  </p>
-
-                  <div className="w-full h-[1px] bg-gradient-to-r from-white/10 via-cyan-400/20 to-transparent mb-5" />
-
-                  {/* Bullet points */}
-                  <ul className="space-y-3">
-                    {points.map((point, i) => (
-                      <li key={i} className="flex gap-3 text-gray-300 text-sm md:text-base leading-[1.75] font-light">
-                        <span className="mt-2 shrink-0 w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Tech stack tags */}
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {stack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 text-xs font-Montserrat tracking-wide text-cyan-300 bg-cyan-400/[0.06] border border-cyan-400/15 rounded-full"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                {/* Header */}
+                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-5">
+                  <h3
+                    className="font-grotesk font-medium tracking-tight"
+                    style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.6rem)" }}
+                  >
+                    {company}
+                  </h3>
+                  <span className="font-mono text-[11px] tracking-[0.2em] text-accent uppercase">
+                    {role}
+                  </span>
                 </div>
-              </div>
+
+                <p className="text-muted text-base md:text-lg leading-[1.85] font-light max-w-3xl mb-6">
+                  {summary}
+                </p>
+
+                <ul className="space-y-3 max-w-3xl">
+                  {points.map((point, i) => (
+                    <li
+                      key={i}
+                      className="flex gap-4 text-muted text-sm md:text-base leading-[1.8] font-light"
+                    >
+                      <span className="mt-[0.7em] shrink-0 w-4 h-px bg-accent/60" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-7 flex flex-wrap gap-2">
+                  {stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 font-mono text-[10px] tracking-[0.15em] uppercase text-ink/80 border border-line rounded-full hover:border-accent/40 hover:text-accent transition-colors duration-300"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </article>
             ))}
           </div>
         </div>

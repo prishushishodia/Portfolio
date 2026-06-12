@@ -1,187 +1,195 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { HiOutlineMail } from "react-icons/hi";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { FiArrowUpRight } from "react-icons/fi";
+import { HiOutlineArrowUpRight } from "react-icons/hi2";
 
 const Contact = () => {
-  const containerRef = useRef(null);
-  const textRef = useRef(null);
-  const formRef = useRef(null);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 70%",
-        toggleActions: "play none none none",
-      },
-    });
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".contact-reveal",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }, sectionRef);
 
-    tl.fromTo(
-      textRef.current,
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
-    ).fromTo(
-      formRef.current,
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
-      "-=0.4"
-    );
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className="w-full min-h-screen flex items-center justify-center bg-[#06060b] px-6 py-24 relative"
+    <section
+      ref={sectionRef}
+      className="relative w-full bg-bg text-ink px-6 md:px-12 pt-28 md:pt-40 pb-10 overflow-hidden"
     >
-      {/* Ambient glow */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-cyan-500/5 rounded-full blur-[120px]" />
-      </div>
+      <span className="section-watermark font-grotesk">05</span>
 
-      <div className="max-w-screen-lg w-full mx-auto relative z-10">
-
-        {/* Section Label + Heading */}
-        <div className="mb-14">
-          <p className="text-xs font-Montserrat tracking-[0.35em] text-cyan-400 uppercase mb-3">
-            05 — Get In Touch
-          </p>
-          <h2 className="text-4xl md:text-5xl font-nike tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400 inline-block">
-            CONTACT
-          </h2>
-          <div className="mt-4 w-16 h-[2px] bg-gradient-to-r from-cyan-400 to-transparent rounded-full" />
+      <div className="max-w-[1400px] mx-auto relative z-10">
+        {/* Section label */}
+        <div className="contact-reveal flex items-center gap-4 mb-14 md:mb-20">
+          <span className="font-mono text-xs text-accent tracking-[0.2em]">(05)</span>
+          <span className="font-mono text-xs text-muted tracking-[0.3em] uppercase">
+            Contact
+          </span>
+          <div className="flex-1 h-px bg-line" />
         </div>
 
-        <div className="grid md:grid-cols-5 gap-10 md:gap-14 items-start">
+        {/* Big CTA */}
+        <h2
+          className="contact-reveal font-grotesk font-light leading-[1.05] tracking-tight max-w-5xl"
+          style={{ fontSize: "clamp(2.4rem, 7vw, 6rem)" }}
+        >
+          Have an idea?
+          <br />
+          Let&apos;s{" "}
+          <em className="font-fraunces italic text-accent">build it</em>{" "}
+          together.
+        </h2>
 
-          {/* Left Side — Info */}
-          <div ref={textRef} className="md:col-span-2 space-y-8">
-            <div>
-              <h3 className="text-2xl md:text-3xl font-nike tracking-wide text-white mb-3">
-                Let's work
-                <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">
-                  together.
-                </span>
-              </h3>
-              <p className="text-gray-400 font-light text-sm md:text-base leading-relaxed">
-                I'm always open to new opportunities, collaborations, and interesting
-                conversations. Reach out and let's build something great.
-              </p>
-            </div>
+        <a
+          href="mailto:priyanshushishodia008@gmail.com"
+          className="contact-reveal group mt-10 md:mt-14 inline-flex items-center gap-3 font-mono text-sm md:text-lg tracking-wide text-muted hover:text-accent transition-colors duration-300"
+        >
+          <span className="u-link break-all">priyanshushishodia008@gmail.com</span>
+          <HiOutlineArrowUpRight
+            size={18}
+            className="shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+          />
+        </a>
 
-            {/* Email */}
-            <a
-              href="mailto:priyanshushishodia008@gmail.com"
-              className="flex items-start gap-3 group"
-            >
-              <div className="mt-0.5 p-2 rounded-lg bg-cyan-400/10 border border-cyan-400/20 text-cyan-400 group-hover:bg-cyan-400/20 transition-colors duration-300">
-                <HiOutlineMail size={18} />
-              </div>
-              <div>
-                <p className="text-[10px] font-Montserrat tracking-[0.2em] text-gray-500 uppercase mb-0.5">Email</p>
-                <p className="text-sm text-gray-300 group-hover:text-cyan-300 transition-colors duration-300 break-all">
-                  priyanshushishodia008@gmail.com
-                </p>
-              </div>
-            </a>
-
-            {/* Social links */}
-            <div className="space-y-3">
-              <p className="text-[10px] font-Montserrat tracking-[0.2em] text-gray-500 uppercase">Find me on</p>
-              <div className="flex gap-3">
+        {/* Form + socials */}
+        <div className="mt-20 md:mt-28 grid md:grid-cols-12 gap-12 md:gap-8">
+          {/* Left — socials */}
+          <div className="contact-reveal md:col-span-4 space-y-8">
+            <p className="text-muted font-light text-base leading-[1.85] max-w-sm">
+              Open to new opportunities, collaborations, and interesting
+              conversations. The form works — or just say hi on either of
+              these.
+            </p>
+            <div className="flex flex-col gap-1">
+              {[
+                {
+                  label: "LinkedIn",
+                  icon: <FaLinkedin size={15} />,
+                  href: "https://www.linkedin.com/in/priyanshu-shishodia",
+                },
+                {
+                  label: "GitHub",
+                  icon: <FaGithub size={15} />,
+                  href: "https://github.com/prishushishodia",
+                },
+              ].map(({ label, icon, href }) => (
                 <a
-                  href="https://www.linkedin.com/in/priyanshu-shishodia"
+                  key={label}
+                  href={href}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.04] border border-white/[0.08] rounded-xl text-gray-300 hover:text-white hover:border-blue-400/30 hover:bg-blue-400/8 transition-all duration-300 text-sm font-Montserrat font-medium"
+                  className="group flex items-center justify-between py-4 border-b border-line text-muted hover:text-ink transition-colors duration-300"
                 >
-                  <FaLinkedin size={15} />
-                  LinkedIn
+                  <span className="flex items-center gap-3 font-mono text-xs tracking-[0.2em] uppercase">
+                    {icon}
+                    {label}
+                  </span>
+                  <HiOutlineArrowUpRight
+                    size={15}
+                    className="text-accent opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+                  />
                 </a>
-                <a
-                  href="https://github.com/prishushishodia"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.04] border border-white/[0.08] rounded-xl text-gray-300 hover:text-white hover:border-white/20 hover:bg-white/[0.08] transition-all duration-300 text-sm font-Montserrat font-medium"
-                >
-                  <FaGithub size={15} />
-                  GitHub
-                </a>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* Right Side — Form */}
-          <div ref={formRef} className="md:col-span-3">
+          {/* Right — form */}
+          <div className="contact-reveal md:col-span-7 md:col-start-6">
             <form
               action="https://getform.io/f/bgdplwda"
               method="POST"
-              className="bg-white/[0.03] backdrop-blur-sm border border-white/[0.07] p-7 md:p-9 rounded-2xl space-y-5 hover:border-white/10 transition-all duration-500"
+              className="space-y-8"
             >
-              <div className="grid sm:grid-cols-2 gap-5">
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-Montserrat tracking-[0.2em] text-gray-500 uppercase">Name</label>
+              <div className="grid sm:grid-cols-2 gap-8">
+                <div>
+                  <label className="block mb-2 font-mono text-[10px] tracking-[0.25em] text-muted uppercase">
+                    Name
+                  </label>
                   <input
                     type="text"
                     name="name"
+                    required
                     placeholder="Your name"
-                    className="input-glow w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-xl text-white text-sm placeholder-gray-600
-                               focus:outline-none focus:border-cyan-400/40 focus:bg-white/[0.06] transition-all duration-300 font-light"
+                    className="w-full bg-transparent border-b border-ink/15 py-3 text-ink text-base font-light placeholder:text-ink/25
+                               focus:outline-none focus:border-accent transition-colors duration-300"
                   />
                 </div>
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-Montserrat tracking-[0.2em] text-gray-500 uppercase">Email</label>
+                <div>
+                  <label className="block mb-2 font-mono text-[10px] tracking-[0.25em] text-muted uppercase">
+                    Email
+                  </label>
                   <input
                     type="email"
                     name="email"
+                    required
                     placeholder="your@email.com"
-                    className="input-glow w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-xl text-white text-sm placeholder-gray-600
-                               focus:outline-none focus:border-cyan-400/40 focus:bg-white/[0.06] transition-all duration-300 font-light"
+                    className="w-full bg-transparent border-b border-ink/15 py-3 text-ink text-base font-light placeholder:text-ink/25
+                               focus:outline-none focus:border-accent transition-colors duration-300"
                   />
                 </div>
               </div>
 
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-Montserrat tracking-[0.2em] text-gray-500 uppercase">Message</label>
+              <div>
+                <label className="block mb-2 font-mono text-[10px] tracking-[0.25em] text-muted uppercase">
+                  Message
+                </label>
                 <textarea
                   name="message"
+                  required
                   placeholder="Tell me about your project..."
-                  rows="5"
-                  className="input-glow w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-xl text-white text-sm placeholder-gray-600
-                             focus:outline-none focus:border-cyan-400/40 focus:bg-white/[0.06] transition-all duration-300 resize-none font-light"
+                  rows="4"
+                  className="w-full bg-transparent border-b border-ink/15 py-3 text-ink text-base font-light placeholder:text-ink/25
+                             focus:outline-none focus:border-accent transition-colors duration-300 resize-none"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 py-3.5 font-Montserrat font-semibold text-sm tracking-wider
-                           bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500
-                           rounded-xl text-white hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-[1.01]
-                           transition-all duration-300"
+                className="group inline-flex items-center gap-2 px-8 py-4 bg-accent text-bg rounded-full font-grotesk font-medium text-sm tracking-wide
+                           hover:bg-ink transition-colors duration-300"
               >
-                Send Message
-                <FiArrowUpRight size={16} />
+                Send message
+                <HiOutlineArrowUpRight
+                  size={15}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
               </button>
             </form>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="mt-20 pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs font-Montserrat tracking-[0.15em] text-gray-600">
-            © 2025 Priyanshu Shishodia. All rights reserved.
+        <footer className="mt-24 md:mt-32 pt-8 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="font-mono text-[10px] tracking-[0.2em] text-muted/70 uppercase">
+            © 2026 Priyanshu Shishodia
           </p>
-          <p className="text-xs font-Montserrat tracking-[0.1em] text-gray-600">
-            Built with React &amp; Tailwind CSS
+          <p className="font-mono text-[10px] tracking-[0.2em] text-muted/70 uppercase">
+            Designed &amp; built from scratch
           </p>
-        </div>
+        </footer>
       </div>
-    </div>
+    </section>
   );
 };
 

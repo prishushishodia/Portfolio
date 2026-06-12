@@ -1,127 +1,115 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const stats = [
-  { value: "5+", label: "Projects Built" },
-  { value: "2+", label: "Years Coding" },
+  { value: "05+", label: "Projects shipped" },
+  { value: "02", label: "Internships" },
   { value: "10+", label: "Technologies" },
 ];
 
 const About = () => {
   const sectionRef = useRef(null);
-  const headingRef = useRef(null);
-  const contentRef = useRef(null);
-  const statsRef = useRef(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 70%",
-        toggleActions: "play none none reverse",
-      },
-    });
-
-    tl.fromTo(
-      headingRef.current,
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }
-    )
-      .fromTo(
-        contentRef.current,
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".about-reveal",
         { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
-        "-=0.3"
-      )
-      .fromTo(
-        ".stat-card",
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", stagger: 0.12 },
-        "-=0.5"
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+            toggleActions: "play none none reverse",
+          },
+        }
       );
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="w-full min-h-screen bg-[#0a0a0f] dot-grid flex items-center justify-center px-6 py-24 scroll-mt-20 relative"
+      className="relative w-full bg-bg text-ink px-6 md:px-12 py-28 md:py-40 overflow-hidden"
     >
-      {/* Ambient glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-blue-600/4 rounded-full blur-[100px]" />
-      </div>
+      <span className="section-watermark font-grotesk">01</span>
 
-      <div className="max-w-screen-lg mx-auto w-full text-white relative z-10">
-
-        {/* Section Label + Heading */}
-        <div ref={headingRef} className="mb-14">
-          <p className="text-xs font-Montserrat tracking-[0.35em] text-cyan-400 uppercase mb-3">
-            01 — About Me
-          </p>
-          <h2 className="text-4xl md:text-5xl font-nike tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400 inline-block">
-            ABOUT
-          </h2>
-          <div className="mt-4 w-16 h-[2px] bg-gradient-to-r from-cyan-400 to-transparent rounded-full" />
+      <div className="max-w-[1400px] mx-auto relative z-10">
+        {/* Section label */}
+        <div className="about-reveal flex items-center gap-4 mb-14 md:mb-20">
+          <span className="font-mono text-xs text-accent tracking-[0.2em]">(01)</span>
+          <span className="font-mono text-xs text-muted tracking-[0.3em] uppercase">
+            About
+          </span>
+          <div className="flex-1 h-px bg-line" />
         </div>
 
-        {/* Content Grid */}
-        <div ref={contentRef} className="grid md:grid-cols-3 gap-8 items-start">
+        {/* Statement */}
+        <h2
+          className="about-reveal font-grotesk font-light leading-[1.15] tracking-tight max-w-5xl"
+          style={{ fontSize: "clamp(1.75rem, 4.2vw, 3.5rem)" }}
+        >
+          I take web products from{" "}
+          <em className="font-fraunces italic text-accent">idea</em> to{" "}
+          <em className="font-fraunces italic text-accent">deployment</em> —
+          interface, API, and the infrastructure underneath.
+        </h2>
 
-          {/* Text Block */}
-          <div className="md:col-span-2 space-y-5">
-            <div className="bg-white/[0.03] backdrop-blur-sm border border-white/[0.07] rounded-2xl p-7 md:p-9 space-y-5 card-glow transition-all duration-500">
-              <p className="text-gray-300 text-base md:text-[1.05rem] leading-[1.85] font-light">
-                As a dedicated{" "}
-                <span className="text-white font-semibold">
-                  full-stack developer
-                </span>
-                , I architect and deploy complete, end-to-end web applications.
-                My expertise seamlessly bridges{" "}
-                <span className="text-cyan-400 font-medium">
-                  frontend and backend technologies
-                </span>
-                , allowing me to build robust, scalable solutions with an unwavering
-                focus on both intuitive user experiences and efficient server-side
-                performance.
-              </p>
-              <div className="w-full h-[1px] bg-gradient-to-r from-white/10 via-cyan-400/20 to-transparent" />
-              <p className="text-gray-300 text-base md:text-[1.05rem] leading-[1.85] font-light">
-                I have successfully delivered{" "}
-                <span className="text-white font-semibold">
-                  over five complete full-stack projects
-                </span>
-                , demonstrating hands-on knowledge of modern technology stacks.
-                My portfolio showcases proficiency in{" "}
-                <span className="text-cyan-400 font-medium">React</span> and{" "}
-                <span className="text-cyan-400 font-medium">Node.js</span>,
-                alongside a deep understanding of{" "}
-                <span className="text-cyan-400 font-medium">WebSockets</span> and{" "}
-                <span className="text-cyan-400 font-medium">RESTful API design</span>.
-                My approach is rooted in writing clean, maintainable code to solve
-                complex challenges.
-              </p>
-            </div>
+        {/* Body copy + stats */}
+        <div className="mt-16 md:mt-24 grid md:grid-cols-12 gap-12 md:gap-8">
+          <div className="md:col-span-5 md:col-start-2 about-reveal">
+            <p className="text-muted text-base md:text-lg leading-[1.9] font-light">
+              I&apos;m a full-stack developer working across the entire stack —{" "}
+              <span className="text-ink">React</span> and{" "}
+              <span className="text-ink">Next.js</span> on the front,{" "}
+              <span className="text-ink">Node.js</span>,{" "}
+              <span className="text-ink">NestJS</span> and{" "}
+              <span className="text-ink">PostgreSQL</span> behind. I care as
+              much about the last 5% of interaction polish as the architecture
+              underneath it.
+            </p>
           </div>
+          <div className="md:col-span-5 about-reveal">
+            <p className="text-muted text-base md:text-lg leading-[1.9] font-light">
+              I&apos;ve shipped five-plus end-to-end projects and production
+              work for real clients — realtime apps over{" "}
+              <span className="text-ink">WebSockets</span>, REST APIs with
+              proper auth, job queues, and cloud infrastructure on{" "}
+              <span className="text-ink">AWS</span>. Clean, maintainable code
+              is the default, not the goal.
+            </p>
+          </div>
+        </div>
 
-          {/* Stats Column */}
-          <div className="flex flex-col gap-4">
-            {stats.map(({ value, label }) => (
-              <div
-                key={label}
-                className="stat-card bg-white/[0.03] border border-white/[0.07] rounded-xl p-6 text-center hover:border-cyan-400/25 hover:bg-white/[0.05] transition-all duration-400 group"
+        {/* Stats */}
+        <div className="mt-20 md:mt-28 grid grid-cols-3 border-t border-line">
+          {stats.map(({ value, label }, i) => (
+            <div
+              key={label}
+              className={`about-reveal py-8 md:py-12 ${
+                i > 0 ? "border-l border-line pl-6 md:pl-12" : ""
+              }`}
+            >
+              <span
+                className="block font-grotesk font-medium text-accent tracking-tight"
+                style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
               >
-                <span className="block text-4xl font-nike bg-gradient-to-r from-cyan-300 to-blue-400 text-transparent bg-clip-text tracking-wider group-hover:from-cyan-200 group-hover:to-blue-300 transition-all duration-300">
-                  {value}
-                </span>
-                <span className="mt-1 block text-xs font-Montserrat tracking-[0.15em] text-gray-400 uppercase font-light">
-                  {label}
-                </span>
-              </div>
-            ))}
-          </div>
+                {value}
+              </span>
+              <span className="mt-2 block font-mono text-[10px] md:text-xs tracking-[0.2em] text-muted uppercase">
+                {label}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </section>
