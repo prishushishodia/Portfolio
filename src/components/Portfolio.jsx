@@ -23,13 +23,13 @@ const projects = [
   },
   {
     id: "02",
-    src: videotube,
-    title: "VideoTube",
+    src: autocrawler,
+    title: "AutoCrawler",
     description:
-      "Full-stack video-sharing platform (YouTube clone) — users register, upload videos to Cloudinary with auto-thumbnails, then watch, search, like, comment, subscribe, and build playlists. Monorepo with an Express/MongoDB REST API and a React 19 SPA, secured by JWT access/refresh tokens.",
-    tags: ["React", "Node.js", "Express", "MongoDB", "Cloudinary", "JWT"],
-    demoLink: "https://video-tube-server-blush.vercel.app/",
-    codeLink: "https://github.com/prishushishodia/VideoTube",
+      "Web scraping and automation tool — structured data extraction at scale with rate limiting, retries, and a UI to configure crawls and inspect results.",
+    tags: ["Node.js", "Puppeteer", "REST API"],
+    demoLink: "https://auto-crawler.vercel.app",
+    codeLink: "https://github.com/prishushishodia/AutoCrawler",
   },
   {
     id: "03",
@@ -43,13 +43,13 @@ const projects = [
   },
   {
     id: "04",
-    src: uber,
-    title: "Uber Clone",
+    src: videotube,
+    title: "VideoTube",
     description:
-      "Full-stack ride-booking platform — live trip tracking over WebSockets for rider and driver roles, Google Maps routing with fare calculation, JWT-protected routes throughout.",
-    tags: ["React", "Maps API", "WebSockets", "JWT"],
-    demoLink: "https://uber-zeta-woad.vercel.app/",
-    codeLink: "https://github.com/prishushishodia/UBER",
+      "Full-stack video-sharing platform (YouTube clone) — users register, upload videos to Cloudinary with auto-thumbnails, then watch, search, like, comment, subscribe, and build playlists. Monorepo with an Express/MongoDB REST API and a React 19 SPA, secured by JWT access/refresh tokens.",
+    tags: ["React", "Node.js", "Express", "MongoDB", "Cloudinary", "JWT"],
+    demoLink: "https://video-tube-server-blush.vercel.app/",
+    codeLink: "https://github.com/prishushishodia/VideoTube",
   },
   {
     id: "05",
@@ -63,13 +63,13 @@ const projects = [
   },
   {
     id: "06",
-    src: autocrawler,
-    title: "AutoCrawler",
+    src: uber,
+    title: "Uber Clone",
     description:
-      "Web scraping and automation tool — structured data extraction at scale with rate limiting, retries, and a UI to configure crawls and inspect results.",
-    tags: ["Node.js", "Puppeteer", "REST API"],
-    demoLink: "https://auto-crawler.vercel.app",
-    codeLink: "https://github.com/prishushishodia/AutoCrawler",
+      "Full-stack ride-booking platform — live trip tracking over WebSockets for rider and driver roles, Google Maps routing with fare calculation, JWT-protected routes throughout.",
+    tags: ["React", "Maps API", "WebSockets", "JWT"],
+    demoLink: "https://uber-zeta-woad.vercel.app/",
+    codeLink: "https://github.com/prishushishodia/UBER",
   },
 ];
 
