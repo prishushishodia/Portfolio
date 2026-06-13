@@ -116,6 +116,59 @@
   }
   .schip b { color: #ff5c28; font-weight: 500; }
 
+  /* ——— VIDEOTUBE ——— */
+  .vt-feature {
+    position: absolute; top: 210px; left: 80px; width: 800px; height: 470px; z-index: 2;
+    border-radius: 24px; overflow: hidden; border: 1px solid rgba(237,232,223,0.12);
+    background: linear-gradient(135deg, #2a2017, #15110c 65%);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .vt-feature .play {
+    width: 130px; height: 130px; border-radius: 50%; background: #ff5c28;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .vt-feature .play::after {
+    content: ""; border-left: 44px solid #14120f;
+    border-top: 28px solid transparent; border-bottom: 28px solid transparent;
+    margin-left: 12px;
+  }
+  .vt-feature .dur {
+    position: absolute; bottom: 24px; right: 24px;
+    font-family: "JetBrains Mono", monospace; font-size: 24px;
+    background: rgba(13,12,10,0.85); color: #ede8df; padding: 8px 16px; border-radius: 8px;
+  }
+  .vt-feature .live {
+    position: absolute; top: 24px; left: 24px;
+    font-family: "JetBrains Mono", monospace; font-size: 22px; letter-spacing: 0.12em;
+    background: #ff5c28; color: #14120f; padding: 8px 18px; border-radius: 8px; font-weight: 600;
+  }
+  .vt-row { position: absolute; top: 720px; left: 80px; width: 800px; display: flex; gap: 28px; z-index: 2; }
+  .vt-card { flex: 1; }
+  .vt-card .thumb {
+    position: relative; height: 160px; border-radius: 14px; overflow: hidden;
+    background: linear-gradient(135deg, #221c14, #15110c 70%);
+    border: 1px solid rgba(237,232,223,0.10);
+  }
+  .vt-card .thumb span {
+    position: absolute; bottom: 12px; right: 12px;
+    font-family: "JetBrains Mono", monospace; font-size: 18px;
+    background: rgba(13,12,10,0.85); color: #ede8df; padding: 5px 10px; border-radius: 6px;
+  }
+  .vt-card .t1 { margin-top: 18px; height: 18px; border-radius: 6px; background: rgba(237,232,223,0.16); }
+  .vt-card .t2 { margin-top: 12px; height: 14px; width: 60%; border-radius: 6px; background: rgba(237,232,223,0.08); }
+  .vt-side { position: absolute; top: 240px; right: 110px; z-index: 2; display: flex; flex-direction: column; gap: 22px; align-items: flex-end; }
+  .vt-sub {
+    font-family: "JetBrains Mono", monospace; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase;
+    background: #ff5c28; color: #14120f; padding: 18px 34px; border-radius: 999px; font-weight: 600;
+  }
+  .vt-stat {
+    font-family: "JetBrains Mono", monospace; font-size: 23px; letter-spacing: 0.1em;
+    color: #b6afa0; border: 1px solid rgba(237,232,223,0.16); border-radius: 999px;
+    padding: 16px 30px; background: rgba(20,17,13,0.8);
+  }
+  .vt-stat b { color: #ff5c28; font-weight: 500; }
+
   /* ——— 1. CHAT-APP ——— */
   .bubbles { position: absolute; top: 250px; left: 80px; width: 880px; z-index: 2; display: flex; flex-direction: column; gap: 28px; }
   .bubble {
@@ -233,9 +286,32 @@
   <div class="wordmark">Creator<em>Vision</em></div>
 </div>
 
+<!-- VIDEOTUBE -->
+<div class="cover" id="videotube">
+  <div class="label"><b>/02</b>Video Sharing Platform</div>
+  <div class="vt-feature">
+    <span class="live">NOW PLAYING</span>
+    <div class="play"></div>
+    <span class="dur">12:48</span>
+  </div>
+  <div class="vt-row">
+    <div class="vt-card"><div class="thumb"><span>08:21</span></div><div class="t1"></div><div class="t2"></div></div>
+    <div class="vt-card"><div class="thumb"><span>04:05</span></div><div class="t1"></div><div class="t2"></div></div>
+    <div class="vt-card"><div class="thumb"><span>15:32</span></div><div class="t1"></div><div class="t2"></div></div>
+  </div>
+  <div class="vt-side">
+    <span class="vt-sub">Subscribe</span>
+    <span class="vt-stat"><b>likes</b> · comments · playlists</span>
+    <span class="vt-stat"><b>cloudinary</b> uploads</span>
+    <span class="vt-stat"><b>jwt</b> · access + refresh</span>
+  </div>
+  <div class="ghost">02</div>
+  <div class="wordmark">Video<em>Tube</em></div>
+</div>
+
 <!-- 1. CHAT-APP -->
 <div class="cover" id="chatapp">
-  <div class="label"><b>/02</b>Realtime Messaging</div>
+  <div class="label"><b>/03</b>Realtime Messaging</div>
   <div class="bubbles">
     <div class="bubble">socket connected — room #builds</div>
     <div class="bubble me">shipping the new release tonight<span class="meta">delivered · 21:42</span></div>
@@ -243,7 +319,7 @@
     <div class="bubble typing"><i></i><i></i><i></i></div>
   </div>
   <div class="ws-chip">ws · latency 42ms</div>
-  <div class="ghost">02</div>
+  <div class="ghost">03</div>
   <div class="wordmark">Chat<em>App</em></div>
 </div>
 
@@ -260,19 +336,19 @@
     <circle cx="1240" cy="330" r="16" fill="#ede8df" />
     <circle cx="1240" cy="330" r="34" fill="none" stroke="rgba(237,232,223,0.4)" stroke-width="3" />
   </svg>
-  <div class="label"><b>/03</b>Ride Booking · Live Tracking</div>
+  <div class="label"><b>/04</b>Ride Booking · Live Tracking</div>
   <div class="fare">
     <div class="row1">Trip fare</div>
     <div class="row2">₹ 248.00</div>
     <div class="row3">12.4 km · driver en route</div>
   </div>
-  <div class="ghost">03</div>
+  <div class="ghost">04</div>
   <div class="wordmark">Uber<em>Clone</em></div>
 </div>
 
 <!-- 3. OVERSOCS -->
 <div class="cover" id="oversocs">
-  <div class="label"><b>/04</b>E-commerce</div>
+  <div class="label"><b>/05</b>E-commerce</div>
   <div class="shop">
     <div class="product">
       <div class="img">🧦</div>
@@ -294,7 +370,7 @@
       <div class="cart ghosted">Add to cart</div>
     </div>
   </div>
-  <div class="ghost">04</div>
+  <div class="ghost">05</div>
   <div class="wordmark">Over<em>socs</em></div>
 </div>
 
@@ -312,7 +388,7 @@
     <circle cx="1180" cy="280" r="22" fill="#ff5c28" />
     <circle cx="1240" cy="520" r="22" fill="#ff5c28" />
   </svg>
-  <div class="label"><b>/05</b>Scraping &amp; Automation</div>
+  <div class="label"><b>/06</b>Scraping &amp; Automation</div>
   <div class="term">
     <div class="bar"><i></i><i></i><i></i></div>
     <pre>$ autocrawl --recursive https://example.com
@@ -323,7 +399,7 @@
 <span class="ok">200</span>  /api/inventory       0.6s   parsed
 <span class="dim">[done]</span> 312 records → export.json</pre>
   </div>
-  <div class="ghost">05</div>
+  <div class="ghost">06</div>
   <div class="wordmark">Auto<em>Crawler</em></div>
 </div>
 

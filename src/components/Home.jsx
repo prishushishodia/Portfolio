@@ -84,6 +84,7 @@ const Home = () => {
         <img
           src={me}
           alt="Priyanshu Shishodia watching a sunset"
+          // eslint-disable-next-line react/no-unknown-property -- React 18 expects lowercase `fetchpriority`; camelCase triggers a runtime warning
           fetchpriority="high"
           className="w-full h-full object-cover"
           style={{ objectPosition: "62% 35%" }}

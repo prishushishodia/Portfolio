@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FiGithub } from "react-icons/fi";
 import { HiOutlineArrowUpRight } from "react-icons/hi2";
 import creatorvision from "../assets/creatorvision.jpg";
+import videotube from "../assets/videotube.jpg";
 import uber from "../assets/uber.jpg";
 import chatapp from "../assets/chatapp.jpg";
 import oversocs from "../assets/oversocs.jpg";
@@ -22,6 +23,16 @@ const projects = [
   },
   {
     id: "02",
+    src: videotube,
+    title: "VideoTube",
+    description:
+      "Full-stack video-sharing platform (YouTube clone) — users register, upload videos to Cloudinary with auto-thumbnails, then watch, search, like, comment, subscribe, and build playlists. Monorepo with an Express/MongoDB REST API and a React 19 SPA, secured by JWT access/refresh tokens.",
+    tags: ["React", "Node.js", "Express", "MongoDB", "Cloudinary", "JWT"],
+    demoLink: "https://video-tube-server-blush.vercel.app/",
+    codeLink: "https://github.com/prishushishodia/VideoTube",
+  },
+  {
+    id: "03",
     src: chatapp,
     title: "Chat-App",
     description:
@@ -31,7 +42,7 @@ const projects = [
     codeLink: "https://github.com/prishushishodia/ChatAPP-Client",
   },
   {
-    id: "03",
+    id: "04",
     src: uber,
     title: "Uber Clone",
     description:
@@ -41,7 +52,7 @@ const projects = [
     codeLink: "https://github.com/prishushishodia/UBER",
   },
   {
-    id: "04",
+    id: "05",
     src: oversocs,
     title: "Oversocs",
     description:
@@ -51,7 +62,7 @@ const projects = [
     codeLink: "https://github.com/prishushishodia/OVERSOCS",
   },
   {
-    id: "05",
+    id: "06",
     src: autocrawler,
     title: "AutoCrawler",
     description:
